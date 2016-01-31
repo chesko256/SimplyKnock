@@ -1,0 +1,69 @@
+﻿Build started 1/31/2016 10:52:41 AM.
+     1>Project "E:\ModOrganizerData\mods\SimplyKnock\simplyknock_skse_plugin\common\common.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IE:\ModOrganizerData\mods\SimplyKnock\simplyknock_skse_plugin\ /IE:\ModOrganizerData\mods\SimplyKnock\simplyknock_skse_plugin\\.. /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _VC80_UPGRADE=0x0710 /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /FIcommon/IPrefix.h /analyze- /errorReport:prompt IBufferStream.cpp IDataStream.cpp IFileStream.cpp ISegmentStream.cpp IDebugLog.cpp IErrors.cpp IEvent.cpp IInterlockedLong.cpp IMutex.cpp IReadWriteLock.cpp IThread.cpp IArchive.cpp IDatabase.cpp IFIFO.cpp IRangeMap.cpp ITextParser.cpp ITypes.cpp IConsole.cpp IDynamicCreate.cpp ITimer.cpp IMemPool.cpp IPipeClient.cpp IPipeServer.cpp IDirectoryIterator.cpp IPrefix.cpp
+         IPrefix.cpp
+         IDirectoryIterator.cpp
+         IPipeServer.cpp
+         IPipeClient.cpp
+         IMemPool.cpp
+         ITimer.cpp
+         IDynamicCreate.cpp
+         IConsole.cpp
+         ITypes.cpp
+         ITextParser.cpp
+         IRangeMap.cpp
+         IFIFO.cpp
+         IDatabase.cpp
+         IArchive.cpp
+         IThread.cpp
+         IReadWriteLock.cpp
+         IMutex.cpp
+         IInterlockedLong.cpp
+         IEvent.cpp
+         IErrors.cpp
+         Generating Code...
+         Compiling...
+         IDebugLog.cpp
+         ISegmentStream.cpp
+         IFileStream.cpp
+         IDataStream.cpp
+         IBufferStream.cpp
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"E:\ModOrganizerData\mods\SimplyKnock\simplyknock_skse_plugin\Debug\common.lib" /NOLOGO Debug\IBufferStream.obj
+         Debug\IDataStream.obj
+         Debug\IFileStream.obj
+         Debug\ISegmentStream.obj
+         Debug\IDebugLog.obj
+         Debug\IErrors.obj
+         Debug\IEvent.obj
+         Debug\IInterlockedLong.obj
+         Debug\IMutex.obj
+         Debug\IReadWriteLock.obj
+         Debug\IThread.obj
+         Debug\IArchive.obj
+         Debug\IDatabase.obj
+         Debug\IFIFO.obj
+         Debug\IRangeMap.obj
+         Debug\ITextParser.obj
+         Debug\ITypes.obj
+         Debug\IConsole.obj
+         Debug\IDynamicCreate.obj
+         Debug\ITimer.obj
+         Debug\IMemPool.obj
+         Debug\IPipeClient.obj
+         Debug\IPipeServer.obj
+         Debug\IDirectoryIterator.obj
+         Debug\IPrefix.obj
+     1>IDynamicCreate.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>IRangeMap.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>IDatabase.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>IArchive.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>IInterlockedLong.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+         common.vcxproj -> E:\ModOrganizerData\mods\SimplyKnock\simplyknock_skse_plugin\Debug\common.lib
+     1>Done Building Project "E:\ModOrganizerData\mods\SimplyKnock\simplyknock_skse_plugin\common\common.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:08.02

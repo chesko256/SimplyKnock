@@ -1,0 +1,14 @@
+﻿Build started 1/31/2016 10:02:25 AM.
+     1>Project "E:\ModOrganizerData\mods\SimplyKnock\simplyknock_skse_plugin\skse\skse.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\12.0\bin\Microsoft.Common.CurrentVersion.targets(1492,5): warning : The referenced project '..\..\common\common_vc9.vcxproj' does not exist.
+     1>Lib:
+         skse.vcxproj -> E:\ModOrganizerData\mods\SimplyKnock\simplyknock_skse_plugin\Debug\skse.lib
+       PostBuildEvent:
+         copy "E:\ModOrganizerData\mods\SimplyKnock\simplyknock_skse_plugin\Debug\skse.lib" "\skse.lib"
+         :VCEnd
+                 1 file(s) copied.
+     1>Done Building Project "E:\ModOrganizerData\mods\SimplyKnock\simplyknock_skse_plugin\skse\skse.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.12
