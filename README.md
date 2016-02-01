@@ -1,11 +1,11 @@
 # Simply Knock
 **Simply Knock** is the first, and only, fully-featured mod that allows you to **knock on locked doors in Skyrim**. If anyone is home, they will answer the door! You can then flex your persuasion or intimidation skills in order to get them to allow you inside. If someone inside is a friend, they will always permit you to enter.
 
-If you need a quiet place to stay the night, want to visit someone you know at odd hours, or check to see if anyone's home before you commit your next burglary, simply... knock!
+If you need a quiet place to stay the night, or want to visit someone you know at odd hours, just knock on the door like a normal civilized person. Also useful for checking to see if anyone's home before you commit your next burglary.
 
 How To Use
 ----------
-Click on any locked residence in Skyrim. Instead of the lockpicking screen, you will be given the choices of "Knock", "Leave", and "Unlock". That's all there is to it.
+Click on any locked residence in Skyrim. Instead of the lockpicking screen, you will be given the choices of "Knock", "Leave", and "Unlock". If someone is home, they will answer the door and you can talk to them through the door and try to bargain your way in. That's all there is to it.
 
 How This Mod Came To Be
 -----------------------
@@ -52,3 +52,11 @@ Weird as it sounds, there is no default Papyrus function for getting the destina
 Simply Knock implements a custom SKSE function GetLinkedDoor() that sidesteps this problem and provides this missing piece of information to make the rest of this mod possible. 
 
 Huge thanks to PurpleLunchBox and Verteiron for helping me create my first SKSE plugin!
+
+TODO
+------------------
+* Determine if animations are possible.
+* Finish hooking up invisible door actors and dialogue branches.
+* Hook up MCM.
+* Hook up Settings Profiles.
+* Determine if displaying actor name on other side of door in dialogue is possible. i.e. "Lucan, it's me, Chesko. May I come in?"
