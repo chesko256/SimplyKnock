@@ -7,6 +7,12 @@ How To Use
 ----------
 Click on any locked residence in Skyrim. Instead of the lockpicking screen, you will be given the choices of "Knock", "Leave", and "Unlock". If someone is home, they will answer the door and you can talk to them through the door and try to bargain your way in. That's all there is to it.
 
+Requirements
+------------
+* Skyrim 1.9.32.0
+* SKSE 1.7.3+
+* SkyUI 4.1+ (SkyUI-Away is fine)
+
 How This Mod Came To Be
 -----------------------
 A few nights ago I was happily playing when I decided to visit my good buddy Faendal after dark. I helped him out with his lady problems just the other day, and I figure, we're pals, right? It was then I realized, as I had realized many times in the past, the only way I could talk to him right now was:
