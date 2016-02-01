@@ -5,7 +5,11 @@ If you need a quiet place to stay the night, or want to visit someone you know a
 
 How To Use
 ----------
-Click on any locked residence in Skyrim. Instead of the lockpicking screen, you will be given the choices of "Knock", "Leave", and "Unlock". If someone is home, they will answer the door and you can talk to them through the door and try to bargain your way in. That's all there is to it.
+Click on any locked residence in Skyrim. Instead of the lockpicking screen, you will be given the choices of "Knock", "Leave", and "Unlock". If someone is home, they will answer the door and you can talk to them through the door and try to bargain your way in. Friends always allow you to enter, so being helpful pays off.
+
+If no one is home, or no one is willing to answer the door (examples: already failed to persuade the owner, no owners are home, or only children home), you will receive the message "No answer." 
+
+That's all there is to it.
 
 Requirements
 ------------
