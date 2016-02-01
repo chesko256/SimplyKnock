@@ -2,6 +2,7 @@ scriptname SimplyKnockMainScript extends Quest
 
 import SimplyKnockSKSE
 
+ReferenceAlias property TalkingDoorAlias auto
 Actor property PlayerRef auto
 int property FormType_kNPC = 43 autoReadOnly
 Perk property _SK_KnockPerk auto
@@ -12,6 +13,8 @@ VoiceType property MaleSlyCynical auto
 
 Activator property _SK_Talk_FemaleYoungEager auto
 Activator property _SK_Talk_MaleSlyCynical auto
+
+ActorBase property _SK_TD_FemaleYoungEager auto
 
 ; If a friend is in the cell, the friend always wins.
 ; If the door has a specific actor owner, look for that actor.
@@ -55,10 +58,12 @@ function KnockOnDoor(ObjectReference akDoor)
 	endif
 
 	if found_actor
-		Activator talking_door = GetTalkingDoor(found_actor.GetVoiceType())
-		ObjectReference my_talking_door = akDoor.PlaceAtMe(talking_door)
-		Utility.Wait(1)
-		my_talking_door.Activate(PlayerRef)
+		ActorBase talking_door = GetTalkingDoor(found_actor.GetVoiceType())
+		Actor my_talking_door = akDoor.PlaceActorAtMe(talking_door)
+		TalkingDoorAlias.ForceRefTo(my_talking_door)
+		Utility.Wait(10)
+		my_talking_door.Disable()
+		my_talking_door.Delete()
 	else
 		NoAnswer()
 	endif
@@ -82,7 +87,7 @@ Actor function KnockOnDoor_ActorOwner(ObjectReference linked_door, ActorBase act
 	endif
 endFunction
 
-Activator function GetTalkingDoor(VoiceType akVoiceType)
+ActorBase function GetTalkingDoor(VoiceType akVoiceType)
 	;/if akVoiceType == FemaleYoungEager
 		return _SK_Talk_FemaleYoungEager
 	elseif akVoiceType == MaleSlyCynical
@@ -90,7 +95,7 @@ Activator function GetTalkingDoor(VoiceType akVoiceType)
 	endif
 	/;
 
-	return _SK_Talk_FemaleYoungEager
+	return _SK_TD_FemaleYoungEager
 endFunction
 
 Actor function KnockOnDoor_FactionOwner(ObjectReference linked_door)
