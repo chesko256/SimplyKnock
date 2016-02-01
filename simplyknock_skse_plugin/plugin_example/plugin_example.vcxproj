@@ -112,10 +112,10 @@
   <ItemGroup>
     <ClCompile Include="..\skse\GameReferences.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MyPlugin.cpp" />
+    <ClCompile Include="SimplyKnock.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyPlugin.h" />
+    <ClInclude Include="SimplyKnock.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="exports.def" />
