@@ -14,5 +14,5 @@ Event OnCrosshairRefChange(ObjectReference ref)
 	debug.trace("Lock level: " + ref.GetLockLevel())
 	debug.trace("Linked ref: " + ref.GetLinkedRef())
 	debug.trace("Key: " + ref.GetKey())
-	debug.trace("Linked door: " + GetLinkedDoor())
+	debug.trace("Linked door: " + GetLinkedDoor(ref))
 EndEvent

@@ -1,3 +1,3 @@
 scriptname SimplyKnockSKSEScript
 
-ObjectReference function GetLinkedDoor() global native
+ObjectReference function GetLinkedDoor(ObjectReference akDoor) global native

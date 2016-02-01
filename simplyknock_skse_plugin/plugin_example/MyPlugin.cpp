@@ -1,6 +1,7 @@
 #include "MyPlugin.h"
 #include "../skse/GameReferences.h"
 #include "../skse/GameBSExtraData.h"
+#include "../skse/GameRTTI.h"
 
 // 0C
 class ExtraTeleport : public BSExtraData
@@ -25,8 +26,23 @@ public:
 
 namespace SimplyKnockNamespace {
 	TESObjectREFR * GetLinkedDoor(StaticFunctionTag *base, TESObjectREFR* object) {
-		_MESSAGE("GetLinkedDoor() will simply return the object supplied to it for now.");
-		return object;
+		_MESSAGE("GetLinkedDoor() will return the ExtraTeleport object and log it and return NONE for now.");
+		
+		//Get the ExtraTeleport
+		ExtraTeleport* teleport = DYNAMIC_CAST(object->extraData.GetByType(kExtraData_Teleport), BSExtraData, ExtraTeleport);
+		if (!teleport) return NULL;
+
+		//Get the RefHandle
+		UInt32 handle = NULL;
+		if (teleport->data)
+			handle = teleport->data->refHandle;
+		if (handle == (*g_invalidRefHandle) || handle == 0) return NULL;
+
+		//Get the Reference
+		TESObjectREFR * reference = NULL;
+		LookupREFRByHandle(&handle, &reference);
+
+		return reference;
 	}
 
 	bool RegisterFuncs(VMClassRegistry* registry) {
