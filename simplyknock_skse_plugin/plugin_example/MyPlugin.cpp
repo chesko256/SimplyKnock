@@ -26,7 +26,9 @@ public:
 
 namespace SimplyKnockNamespace {
 	TESObjectREFR * GetLinkedDoor(StaticFunctionTag *base, TESObjectREFR* object) {
-		_MESSAGE("GetLinkedDoor() will return the ExtraTeleport object and log it and return NONE for now.");
+		// Return the Linked Door reference of this object reference.
+
+		if (!object) return NULL;
 		
 		//Get the ExtraTeleport
 		ExtraTeleport* teleport = DYNAMIC_CAST(object->extraData.GetByType(kExtraData_Teleport), BSExtraData, ExtraTeleport);

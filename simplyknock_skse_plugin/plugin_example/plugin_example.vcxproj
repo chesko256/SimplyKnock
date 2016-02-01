@@ -12,7 +12,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{547171CB-F934-40B9-B788-3C520FE66363}</ProjectGuid>
-    <RootNamespace>plugin_example</RootNamespace>
+    <RootNamespace>SimplyKnockNamespace</RootNamespace>
     <SccProjectName>
     </SccProjectName>
     <SccAuxPath>
@@ -22,6 +22,7 @@
     <SccProvider>
     </SccProvider>
     <Keyword>Win32Proj</Keyword>
+    <ProjectName>simplyknock</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -109,6 +110,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\skse\GameReferences.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyPlugin.cpp" />
   </ItemGroup>
