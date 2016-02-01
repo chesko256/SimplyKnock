@@ -45,9 +45,11 @@ When you succeed or fail a persuasion/intimidation check, a small invisible mark
 
 How It's Different
 ------------------
-What makes this mod unique is that it solves a difficult problem that has prevented a mod like this from being made successfully in the past. That problem is: discovering what cell a linked door leads to.
+Why hasn't a mod like this been made already? Well, a few have, but they haven't been very successful because of missing information.
 
-Weird as it sounds, there is no default Papyrus function for getting the destination of a door. From a script's perspective, stepping through a door in Skyrim is a lot like [stepping through a wormhole](https://i.ytimg.com/vi/BKE71l7_MgQ/maxresdefault.jpg); you don't know where you'll end up or what's inside. Because of this, it was impossible to discover important things like "Where does this door go?", "Who owns this door?" and "Are the owners home?". 
+What makes this mod unique is that it solves a difficult problem: discovering what cell a door leads to.
+
+Weird as it sounds, there is no default Papyrus function for getting the destination of a door. From a script's perspective, stepping through a door in Skyrim is a lot like [stepping through a wormhole](https://i.ytimg.com/vi/BKE71l7_MgQ/maxresdefault.jpg); you don't know where you'll end up or what's inside. Because of this, it was impossible to discover important things like "Where does this door go?", "Who owns this door?" and "Are the owners home?", before you actually go through the door.
 
 Simply Knock implements a custom SKSE function GetLinkedDoor() that sidesteps this problem and provides this missing piece of information to make the rest of this mod possible.
 
