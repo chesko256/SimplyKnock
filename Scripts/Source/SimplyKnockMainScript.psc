@@ -1,7 +1,9 @@
 scriptname SimplyKnockMainScript extends Quest
 
 import SimplyKnockSKSE
+import math
 
+Quest property _SimplyKnockDialogueQuest auto
 ReferenceAlias property TalkingDoorAlias auto
 Actor property PlayerRef auto
 int property FormType_kNPC = 43 autoReadOnly
@@ -11,10 +13,8 @@ SimplyKnockConditions property Conditions auto
 VoiceType property FemaleYoungEager auto
 VoiceType property MaleSlyCynical auto
 
-Activator property _SK_Talk_FemaleYoungEager auto
-Activator property _SK_Talk_MaleSlyCynical auto
-
-ActorBase property _SK_TD_FemaleYoungEager auto
+Activator property _SK_Door_FemaleYoungEager auto
+Activator property _SK_Door_MaleSlyCynical auto
 
 ; If a friend is in the cell, the friend always wins.
 ; If the door has a specific actor owner, look for that actor.
@@ -58,10 +58,18 @@ function KnockOnDoor(ObjectReference akDoor)
 	endif
 
 	if found_actor
-		ActorBase talking_door = GetTalkingDoor(found_actor.GetVoiceType())
-		Actor my_talking_door = akDoor.PlaceActorAtMe(talking_door)
+		Activator talking_door = GetTalkingDoor(found_actor.GetVoiceType())
+		ObjectReference my_talking_door = akDoor.PlaceAtMe(talking_door)
 		TalkingDoorAlias.ForceRefTo(my_talking_door)
-		Utility.Wait(10)
+
+		; Move the talking activator away from the player, to give the sense that the
+		; sound is muffled and coming through the door.
+		float[] talking_door_pos = GetOffsets(PlayerRef, 1400.0)
+		my_talking_door.MoveTo(PlayerRef, talking_door_pos[0], talking_door_pos[1])
+
+		Utility.Wait(1)
+		my_talking_door.Activate(PlayerRef)
+		Utility.Wait(30)
 		my_talking_door.Disable()
 		my_talking_door.Delete()
 	else
@@ -87,7 +95,7 @@ Actor function KnockOnDoor_ActorOwner(ObjectReference linked_door, ActorBase act
 	endif
 endFunction
 
-ActorBase function GetTalkingDoor(VoiceType akVoiceType)
+Activator function GetTalkingDoor(VoiceType akVoiceType)
 	;/if akVoiceType == FemaleYoungEager
 		return _SK_Talk_FemaleYoungEager
 	elseif akVoiceType == MaleSlyCynical
@@ -95,7 +103,7 @@ ActorBase function GetTalkingDoor(VoiceType akVoiceType)
 	endif
 	/;
 
-	return _SK_TD_FemaleYoungEager
+	return _SK_Door_FemaleYoungEager
 endFunction
 
 Actor function KnockOnDoor_FactionOwner(ObjectReference linked_door)
@@ -228,3 +236,17 @@ int function ArrayCount(Actor[] myArray) global
 	endWhile
 	return myCount
 endFunction
+
+float[] function GetOffsets(Actor akSource, Float afDistance = 100.0, float afOffset = 0.0)
+	Float A = akSource.GetAngleZ() + afOffset
+	Float YDist = Sin(A)
+	Float XDist = Cos(A)
+
+	XDist *= afDistance
+	YDist *= afDistance
+
+	Float[] Offsets = New Float[2]
+	Offsets[0] = YDist
+	Offsets[1] = XDist
+	Return Offsets
+EndFunction
