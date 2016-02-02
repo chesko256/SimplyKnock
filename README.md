@@ -7,7 +7,7 @@ How To Use
 ----------
 Click on any locked residence in Skyrim. Instead of the lockpicking screen, you will be given the choices of "Knock", "Leave", and "Unlock". If someone is home, they will answer the door. You can talk to them through the door and try to bargain your way in. People that are your friend always allow you to enter, so being helpful pays off.
 
-If no one is home, or no one is willing to answer the door (examples: already failed to persuade the owner, no owners are home, or only children home), you will receive the message "No answer." 
+If no one is home, or no one is willing to answer the door (no owners are home, etc), you will receive the message "No answer."
 
 That's all there is to it.
 
@@ -29,7 +29,9 @@ I said "enough is enough" and then set about creating this.
 
 Details and Features
 --------------------
-For maximum immersion, the voice of the person you hear on the other side of the door will match the person actually answering the door!
+The voice of the person you hear on the other side of the door will match the person actually answering the door. Yay!
+
+If no one is home, or no one is able / willing to answer the door, no one will answer.
 
 Simply Knock implements a Mod Config Menu to configure a few minor settings, such as how difficult or easy your speechcraft attempts should be. It also adds Settings Profiles, as seen in some of my other mods. Configure it once, and your settings are ready on your next character or play-through automatically.
 
@@ -39,7 +41,18 @@ If the occupant refuses to let you in, they will stop answering the door for 24 
 
 Simply Knock is smart enough to not display the Knock option inside dungeons with locked doors, or in other hostile areas where this option doesn't make sense. It also doesn't display the option when inside and trying to go outside.
 
-Children will not answer the door.
+Settings
+--------------------
+* **Base success chance of requests** - The base chance of how often you will succeed in requesting to come inside, unmodified by Speechcraft skill. Speechcraft adds 0.5% chance per point of Speechcraft. Default: 50%.
+* **Friends always allow entry** - If enabled, friends will always allow you to enter. Default: Enabled.
+* **Request failure timeout period** - How long before you can try to request entry at a given location again after failure. Default: 24 hours.
+* **Settings Profiles** - This mod saves your settings to a profile by default, and are persistent across saves and new games. If you use mods like Campfire or Frostfall, you are probably familiar with this feature.
+
+Limitations
+--------------------
+Simply Knock attempts to match the voice type of the occupant with a list of known common voice types. This will catch 90%+ of possible cases in the game. If the voice type of the occupant is unique, the system defaults to using MaleEvenToned or FemaleEvenToned and the speaker is named "Indistinct Voice" instead of "Voice".
+
+The mod is designed around locked doors that lead to another interior cell. This, again, catches 90%+ (if not 100%) of the cases in the vanilla game. If you are using a mod that brings the interiors of buildings into the Tamriel (or other outdoor) worldspace, this mod will not function at all.
 
 
 Performance and Design
@@ -66,6 +79,9 @@ Simply Knock implements a custom SKSE function GetLinkedDoor() that sidesteps th
 Huge thanks to PurpleLunchBox and Verteiron for helping me create my first SKSE plugin!
 
 If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), feel free to use any of the code found in [simplyknock_skse_plugin](https://github.com/chesko256/SimplyKnock/tree/master/simplyknock_skse_plugin) when creating your own SKSE plug-in. It is free for anyone to use.
+
+How It's Different
+------------------
 
 TODO
 ------------------
