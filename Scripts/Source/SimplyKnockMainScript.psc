@@ -4,6 +4,7 @@ import SimplyKnockSKSE
 import math
 
 Quest property _SimplyKnockDialogueQuest auto
+GlobalVariable property _SK_Setting_SpeechSuccessChance auto
 ReferenceAlias property TalkingDoorAlias auto
 ReferenceAlias property FriendAlias auto
 Actor property PlayerRef auto
@@ -392,6 +393,32 @@ Actor[] function GetCellFactionOwnersInCell(Faction akFaction, Cell akCell)
 	else
 		return found_actors
 	endif
+endFunction
+
+function SetSpeechResult(bool abUseSpeechcraft = false)
+	float difficulty = 1.0 - _SK_Setting_SpeechSuccessChance.GetValue()
+	float speech_factor = 0.0
+	if abUseSpeechcraft
+		speech_factor = PlayerRef.GetActorValue("Speechcraft") * 0.005
+	endif
+	float attempt = Utility.RandomFloat()
+	if (attempt + speech_factor) > difficulty
+		Conditions.SpeechCheckSuccessful = true
+	else
+		Conditions.SpeechCheckSuccessful = false
+	endif
+endFunction
+
+function SetResult_Succeeded()
+
+endFunction
+
+function SetResult_FailedInitial()
+
+endFunction
+
+function SetResult_Failed()
+
 endFunction
 
 function MakeCellPublic()
