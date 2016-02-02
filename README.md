@@ -1,4 +1,5 @@
 # Simply Knock
+
 **Simply Knock** is the first, and only, fully-featured mod that allows you to **knock on locked doors in Skyrim**. If anyone is home, they will answer the door! You can then flex your persuasion or intimidation skills in order to get them to allow you inside. If someone inside is a friend, they will always permit you to enter.
 
 If you need a quiet place to stay the night, or want to visit someone you know at odd hours, just knock on the door like a normal civilized person. Also useful for checking to see if anyone's home before you commit your next burglary.
@@ -37,7 +38,7 @@ Simply Knock implements a Mod Config Menu to configure a few minor settings, suc
 
 If allowed inside, the area will remain unlocked and the occupants will be non-hostile to you (will not accuse you of trespassing) for the duration of your stay, or until the next time their "lock up the doors" routine starts (usually the next day). Try not to overstay your welcome.
 
-If the occupant refuses to let you in, they will stop answering the door for 24 hours. Continued knocking will do nothing.
+If the occupant refuses to let you in, they will continue to refuse you for 24 hours (configurable). Continued knocking will do nothing.
 
 Simply Knock is smart enough to not display the Knock option inside dungeons with locked doors, or in other hostile areas where this option doesn't make sense. It also doesn't display the option when inside and trying to go outside.
 
@@ -46,14 +47,7 @@ Settings
 * **Base success chance of requests** - The base chance of how often you will succeed in requesting to come inside, unmodified by Speechcraft skill. Speechcraft adds 0.5% chance per point of Speechcraft. Default: 50%.
 * **Friends always allow entry** - If enabled, friends will always allow you to enter. Default: Enabled.
 * **Request failure timeout period** - How long before you can try to request entry at a given location again after failure. Default: 24 hours.
-* **Settings Profiles** - This mod saves your settings to a profile by default, and are persistent across saves and new games. If you use mods like Campfire or Frostfall, you are probably familiar with this feature.
-
-Limitations
---------------------
-Simply Knock attempts to match the voice type of the occupant with a list of known common voice types. This will catch 90%+ of possible cases in the game. If the voice type of the occupant is unique, the system defaults to using MaleEvenToned or FemaleEvenToned and the speaker is named "Indistinct Voice" instead of "Voice".
-
-The mod is designed around locked doors that lead to another interior cell. This, again, catches 90%+ (if not 100%) of the cases in the vanilla game. If you are using a mod that brings the interiors of buildings into the Tamriel (or other outdoor) worldspace, this mod will not function at all.
-
+* **Settings Profiles** - This mod saves your settings to a profile by default, and are persistent across saves and new games. If you use mods like Campfire or Frostfall 3, you are probably familiar with this feature.
 
 Performance and Design
 ----------------------
@@ -76,15 +70,27 @@ Weird as it sounds, there is no default Papyrus function for getting the destina
 
 Simply Knock implements a custom SKSE function GetLinkedDoor() that sidesteps this problem and provides this missing piece of information to make the rest of this mod possible.
 
-Huge thanks to PurpleLunchBox and Verteiron for helping me create my first SKSE plugin!
-
 If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), feel free to use any of the code found in [simplyknock_skse_plugin](https://github.com/chesko256/SimplyKnock/tree/master/simplyknock_skse_plugin) when creating your own SKSE plug-in. It is free for anyone to use.
 
-How It's Different
-------------------
+Compatibility
+-------------
+* Simply Knock attempts to match the voice type of the occupant with a list of known common voice types. This will catch 90%+ of possible cases in the game. If the voice type of the occupant is unique, the system defaults to using MaleEvenToned or FemaleEvenToned and the speaker is named "Indistinct Voice" instead of "Voice". This just means that the person you hear on the other side of the door might not match what they actually sound like in this case.
+
+* This mod is designed around knocking on locked doors that lead to another interior cell. This, again, catches 90%+ (if not 100%) of the cases in the vanilla game. If you are using a mod that brings the interiors of buildings into the Tamriel (or other outdoor) worldspace, or a mod that adds new houses / building that have their interiors in the same cell as the exterior, this mod will not function in those instances, and the author has no intention of supporting such a case.
+
+* This mod uses a perk in order to override the activation of doors. If you use another mod that also uses a perk to override door activation, it will be incompatible with Simply Knock.
+
+* Other than those specific cases above, should be compatible with everything.
+
+
+Credits
+-------
+* Credit to the SKSE team.
+* Huge thanks to PurpleLunchBox and Verteiron for helping me create my first SKSE plugin!
+* Includes portions of PapyrusUtil 3.2.
 
 TODO
-------------------
+----
 * Determine if animations are possible.
 * Hook up MCM.
 * Hook up Settings Profiles.
