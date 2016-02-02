@@ -70,7 +70,5 @@ If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), 
 TODO
 ------------------
 * Determine if animations are possible.
-* Finish hooking up invisible door actors and dialogue branches.
 * Hook up MCM.
 * Hook up Settings Profiles.
-* Determine if displaying actor name on other side of door in dialogue is possible. i.e. "Lucan, it's me, Chesko. May I come in?"
