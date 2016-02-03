@@ -1,6 +1,7 @@
 scriptname SimplyKnockInteriorState extends ObjectReference
 
 int property NegotiationState = 0 auto hidden
+Faction property EntryFaction auto hidden
 GlobalVariable property _SK_Setting_StateTimeoutDuration auto
 GlobalVariable property _SK_Setting_LogLevel auto
 
@@ -17,6 +18,9 @@ EndEvent
 
 Event OnUpdateGameTime()
 	DebugLog(0, self + " duration timed out, deleting.")
+	if EntryFaction
+		Game.GetPlayer().RemoveFromFaction(EntryFaction)
+	endif
 	self.Disable()
 	self.Delete()
 EndEvent

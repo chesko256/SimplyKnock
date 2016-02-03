@@ -492,9 +492,13 @@ function SetResult_Succeeded()
 		state_marker = GenerateStateMarker(CurrentDoor)
 	endif
 	(state_marker as SimplyKnockInteriorState).NegotiationState = nsSuccess
-	DoorAlias.ForceRefTo(GetLinkedDoor(CurrentDoor))
+	ObjectReference linked_door = GetLinkedDoor(CurrentDoor)
+	Faction entry_faction = linked_door.GetFactionOwner()
+	DoorAlias.ForceRefTo(linked_door)
 	OwnerAlias.ForceRefTo(CurrentSpeaker)
-	Utility.Wait(1.5)
+	PlayerRef.AddtoFaction(entry_faction)
+	(state_marker as SimplyKnockInteriorState).EntryFaction = entry_faction
+	Utility.Wait(1.0)
 	_SK_UnlockSound.Play(CurrentDoor)
 	RegisterForSingleUpdateGameTime(8.0)
 endFunction
