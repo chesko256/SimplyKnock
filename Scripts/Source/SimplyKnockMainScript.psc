@@ -10,6 +10,7 @@ ReferenceAlias property TalkingDoorAlias auto
 ReferenceAlias property FriendAlias auto
 ReferenceAlias property OwnerAlias auto
 ReferenceAlias property DoorAlias auto
+Sound property _SK_UnlockSound auto
 
 Actor property PlayerRef auto
 Activator property _SK_InteriorStateMarker auto
@@ -233,6 +234,10 @@ Event OnCrosshairRefChange(ObjectReference ref)
 			endif
 		endif
 	endif
+EndEvent
+
+Event OnUpdateGameTime()
+	ClearAllowedEntry()
 EndEvent
 
 ; Called from Perk
@@ -489,6 +494,9 @@ function SetResult_Succeeded()
 	(state_marker as SimplyKnockInteriorState).NegotiationState = nsSuccess
 	DoorAlias.ForceRefTo(GetLinkedDoor(CurrentDoor))
 	OwnerAlias.ForceRefTo(CurrentSpeaker)
+	Utility.Wait(1.5)
+	_SK_UnlockSound.Play(CurrentDoor)
+	RegisterForSingleUpdateGameTime(8.0)
 endFunction
 
 function SetResult_FailedInitial()
@@ -507,10 +515,6 @@ function SetResult_Failed()
 		state_marker = GenerateStateMarker(CurrentDoor)
 	endif
 	(state_marker as SimplyKnockInteriorState).NegotiationState = nsFailure
-endFunction
-
-function MakeCellPublic()
-
 endFunction
 
 ObjectReference function GetStateMarker(ObjectReference akDoor)
@@ -538,6 +542,16 @@ function ResetFlags()
 	CurrentSpeaker = None
 	OwnerAlias.Clear()
 	DoorAlias.Clear()
+endFunction
+
+function ClearAllowedEntry()
+	Actor owner = OwnerAlias.GetActorRef()
+	if owner
+		OwnerAlias.Clear()
+		owner.EvaluatePackage()
+	endif
+	DoorAlias.Clear()
+	UnregisterForUpdateGameTime()
 endFunction
 
 int function ArrayCount(Actor[] myArray) global
