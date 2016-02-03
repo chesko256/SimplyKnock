@@ -92,5 +92,5 @@ Credits
 TODO
 ----
 * Determine if animations are possible.
-* Hook up MCM.
+* Hook up SFX.
 * Hook up Settings Profiles.

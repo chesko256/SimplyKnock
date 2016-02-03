@@ -1,5 +1,7 @@
 Scriptname _SK_SkyUIConfigPanelScript extends SKI_ConfigBase
 
+; TODO: Hook up profile load on game load / start
+
 string CONFIG_PATH = "../SimplyKnockData/"
 
 GlobalVariable property _SK_Setting_SpeechSuccessChance auto
