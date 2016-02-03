@@ -8,6 +8,9 @@ GlobalVariable property _SK_Setting_LogLevel auto
 GlobalVariable property _SK_Setting_SpeechSuccessChance auto
 ReferenceAlias property TalkingDoorAlias auto
 ReferenceAlias property FriendAlias auto
+ReferenceAlias property OwnerAlias auto
+ReferenceAlias property DoorAlias auto
+
 Actor property PlayerRef auto
 Activator property _SK_InteriorStateMarker auto
 int property FormType_kNPC = 43 autoReadOnly
@@ -117,6 +120,7 @@ TalkingActivator[] AllTalkingActivators
 
 ObjectReference property CurrentNegotiationStateMarker auto hidden
 ObjectReference property CurrentDoor auto hidden
+Actor property CurrentSpeaker auto hidden
 
 ; TEST CODE
 Event OnInit()
@@ -253,6 +257,7 @@ function KnockOnDoor(ObjectReference akDoor)
 	endif
 
 	if found_actor
+		CurrentSpeaker = found_actor
 		Activator talking_door = GetTalkingDoor(found_actor.GetVoiceType(), found_actor.GetActorBase().GetSex())
 		ObjectReference my_talking_door = akDoor.PlaceAtMe(talking_door)
 		TalkingDoorAlias.ForceRefTo(my_talking_door)
@@ -482,6 +487,8 @@ function SetResult_Succeeded()
 		state_marker = GenerateStateMarker(CurrentDoor)
 	endif
 	(state_marker as SimplyKnockInteriorState).NegotiationState = nsSuccess
+	DoorAlias.ForceRefTo(GetLinkedDoor(CurrentDoor))
+	OwnerAlias.ForceRefTo(CurrentSpeaker)
 endFunction
 
 function SetResult_FailedInitial()
@@ -528,6 +535,9 @@ function ResetFlags()
 	Conditions.NegotiationInitiallyFailed = false
 	Conditions.SpeechCheckSuccessful = false
 	CurrentNegotiationStateMarker = None
+	CurrentSpeaker = None
+	OwnerAlias.Clear()
+	DoorAlias.Clear()
 endFunction
 
 int function ArrayCount(Actor[] myArray) global

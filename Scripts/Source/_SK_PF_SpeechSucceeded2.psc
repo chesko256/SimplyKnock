@@ -6,7 +6,8 @@ Scriptname _SK_PF_SpeechSucceeded2 Extends TopicInfo Hidden
 Function Fragment_1(ObjectReference akSpeakerRef)
 Actor akSpeaker = akSpeakerRef as Actor
 ;BEGIN CODE
-DialogueFavorGeneric.Persuade(akSpeaker)
+Actor current_speaker = (_SimplyKnockMainQuest as SimplyKnockMainScript).CurrentSpeaker
+DialogueFavorGeneric.Persuade(current_speaker)
 ;END CODE
 EndFunction
 ;END FRAGMENT
