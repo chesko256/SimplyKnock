@@ -102,10 +102,6 @@ TalkingActivator property _SK_Door_FemaleChild auto
 TalkingActivator property _SK_Door_MaleIndistinct auto
 TalkingActivator property _SK_Door_FemaleIndistinct auto
 
-; TODO:
-; check for dead actors
-; deprioritize children in list
-
 ; NegotiationState enum
 int nsReady 		 = 0
 int nsSuccess 		 = 1
@@ -120,7 +116,7 @@ VoiceType[] AllVoiceTypes
 TalkingActivator[] AllTalkingActivators
 
 ObjectReference property CurrentNegotiationStateMarker auto hidden
-ObjectReference property CurrentLinkedDoor auto hidden
+ObjectReference property CurrentDoor auto hidden
 
 ; TEST CODE
 Event OnInit()
@@ -223,11 +219,13 @@ endFunction
 Event OnCrosshairRefChange(ObjectReference ref)
 	if ref
 		if ref.GetBaseObject() as Door
-			CurrentLinkedDoor = GetLinkedDoor(ref)
-			if CurrentLinkedDoor
+			ObjectReference linked_door = GetLinkedDoor(ref)
+			if linked_door
 				Conditions.HasLinkedDoor = true
+				CurrentDoor = ref
 			else
 				Conditions.HasLinkedDoor = false
+				CurrentDoor = ref
 			endif
 		endif
 	endif
@@ -238,19 +236,20 @@ function KnockOnDoor(ObjectReference akDoor)
 	ResetFlags()
 
 	DebugLog(0, "Knocking...")
-	if !CurrentLinkedDoor
+	ObjectReference linked_door = GetLinkedDoor(akDoor)
+	if !linked_door
 		; Shouldn't get here; we should verify whether or not
 		; the door has a linked door before we call KnockOnDoor().
 		DebugLog(2, "Why was I allowed to knock on " + akDoor + "? This door isn't linked!")
 		return
 	endif
 	
-	ActorBase actor_owner = CurrentLinkedDoor.GetActorOwner()
+	ActorBase actor_owner = linked_door.GetActorOwner()
 	Actor found_actor = None
 	if actor_owner
-		found_actor = KnockOnDoor_ActorOwner(CurrentLinkedDoor, actor_owner)
+		found_actor = KnockOnDoor_ActorOwner(linked_door, actor_owner)
 	else
-		found_actor = KnockOnDoor_FactionOwner(CurrentLinkedDoor)
+		found_actor = KnockOnDoor_FactionOwner(linked_door)
 	endif
 
 	if found_actor
@@ -261,7 +260,7 @@ function KnockOnDoor(ObjectReference akDoor)
 		; Set the current negotiation state flags
 		bool allow_dialogue = true
 		int current_state
-		CurrentNegotiationStateMarker = GetNegotiationStateMarker(CurrentLinkedDoor)
+		CurrentNegotiationStateMarker = GetStateMarker(akDoor)
 		if CurrentNegotiationStateMarker
 			current_state = (CurrentNegotiationStateMarker as SimplyKnockInteriorState).NegotiationState
 			if current_state == nsInitialFailure
@@ -381,12 +380,6 @@ function NoAnswer()
 	_SK_NoAnswerMsg.Show()
 endFunction
 
-ObjectReference function GetNegotiationStateMarker(ObjectReference akLinkedDoor)
-	ObjectReference state_marker = Game.FindClosestReferenceOfTypeFromRef(_SK_InteriorStateMarker, akLinkedDoor, 10.0)
-	DebugLog(0, "Found state marker " + state_marker)
-	return state_marker
-endFunction
-
 bool function IsFriendsWithPlayer(Actor akActor)
 	if akActor.GetRelationshipRank(PlayerRef) >= 1
 		return true
@@ -412,10 +405,11 @@ endFunction
 
 Actor[] function GetCellFactionOwnersInCell(Faction akFaction, Cell akCell)
 	; Find all of the faction owners currently in this cell. Bias towards
-	; returning friends of the player. Filter out children.
+	; returning friends of the player. Return children only if no other option available.
 
 	Actor[] found_actors = new Actor[16]
 	Actor[] found_friends = new Actor[16]
+	Actor[] found_children = new Actor[16]
 
 	int actor_count = akCell.GetNumRefs(FormType_kNPC)
 	DebugLog(0, "There were " + actor_count + " actors in " + akCell)
@@ -428,10 +422,13 @@ Actor[] function GetCellFactionOwnersInCell(Faction akFaction, Cell akCell)
 	while i < actor_count
 		Actor possible_owner = akCell.GetNthRef(i, FormType_kNPC) as Actor
 		bool is_child = possible_owner.IsChild()
-		if !is_child && possible_owner.IsInFaction(akFaction)
-			int idx = ArrayCount(found_actors)
-			if idx < 16
-				found_actors[idx] = possible_owner
+		if possible_owner.IsInFaction(akFaction) && !possible_owner.IsDead()
+			; Normal adult owner
+			if !is_child
+				int idx = ArrayCount(found_actors)
+				if idx < 16
+					found_actors[idx] = possible_owner
+				endif
 			endif
 
 			; Is this a friend?
@@ -441,14 +438,24 @@ Actor[] function GetCellFactionOwnersInCell(Faction akFaction, Cell akCell)
 					found_friends[jdx] = possible_owner
 				endif
 			endif
+
+			; Is this a child?
+			if is_child
+				int kdx = ArrayCount(found_children)
+				if kdx < 16
+					found_children[kdx] = possible_owner
+				endif
+			endif
 		endif
 		i += 1
 	endWhile
 
 	if found_friends[0] != None
 		return found_friends
-	else
+	elseif found_actors[0] != None
 		return found_actors
+	else
+		return found_children
 	endif
 endFunction
 
@@ -460,44 +467,61 @@ function SetSpeechResult(bool abUseSpeechcraft = false)
 	endif
 	float attempt = Utility.RandomFloat()
 	if (attempt + speech_factor) > difficulty
+		DebugLog(1, "Success: Rolled " + ((attempt + speech_factor) * 100) + "%, needed " + (difficulty * 100) + "% or higher.")
 		Conditions.SpeechCheckSuccessful = true
 	else
+		DebugLog(1, "Failed: Rolled " + ((attempt + speech_factor) * 100) + "%, needed " + (difficulty * 100) + "% or higher.")
 		Conditions.SpeechCheckSuccessful = false
 	endif
 endFunction
 
 function SetResult_Succeeded()
 	DebugLog(1, "Success!")
-	ObjectReference state_marker = GetNegotiationStateMarker(CurrentLinkedDoor)
+	ObjectReference state_marker = GetStateMarker(CurrentDoor)
 	if !state_marker
-		DebugLog(0, "Generating new state marker.")
-		state_marker = CurrentLinkedDoor.PlaceAtMe(_SK_InteriorStateMarker)
+		state_marker = GenerateStateMarker(CurrentDoor)
 	endif
 	(state_marker as SimplyKnockInteriorState).NegotiationState = nsSuccess
 endFunction
 
 function SetResult_FailedInitial()
 	DebugLog(1, "Initially failed!")
-	ObjectReference state_marker = GetNegotiationStateMarker(CurrentLinkedDoor)
+	ObjectReference state_marker = GetStateMarker(CurrentDoor)
 	if !state_marker
-		DebugLog(0, "Generating new state marker.")
-		state_marker = CurrentLinkedDoor.PlaceAtMe(_SK_InteriorStateMarker)
+		state_marker = GenerateStateMarker(CurrentDoor)
 	endif
 	(state_marker as SimplyKnockInteriorState).NegotiationState = nsInitialFailure
 endFunction
 
 function SetResult_Failed()
 	DebugLog(1, "Failed!")
-	ObjectReference state_marker = GetNegotiationStateMarker(CurrentLinkedDoor)
+	ObjectReference state_marker = GetStateMarker(CurrentDoor)
 	if !state_marker
-		DebugLog(0, "Generating new state marker.")
-		state_marker = CurrentLinkedDoor.PlaceAtMe(_SK_InteriorStateMarker)
+		state_marker = GenerateStateMarker(CurrentDoor)
 	endif
 	(state_marker as SimplyKnockInteriorState).NegotiationState = nsFailure
 endFunction
 
 function MakeCellPublic()
 
+endFunction
+
+ObjectReference function GetStateMarker(ObjectReference akDoor)
+	DebugLog(0, "Searching for state markers around door " + akDoor)
+	ObjectReference state_marker = Game.FindClosestReferenceOfTypeFromRef(_SK_InteriorStateMarker, akDoor, 20.0)
+	if state_marker
+		DebugLog(0, "Found negotiation state marker " + state_marker)
+	else
+		DebugLog(0, "Couldn't find a negotiation state marker.")
+	endif
+	return state_marker
+endFunction
+
+ObjectReference function GenerateStateMarker(ObjectReference akDoor)
+	DebugLog(0, "Generating new state marker.")
+	ObjectReference state_marker = akDoor.PlaceAtMe(_SK_InteriorStateMarker)
+	DebugLog(0, "Created new state marker " + state_marker)
+	return state_marker
 endFunction
 
 function ResetFlags()
