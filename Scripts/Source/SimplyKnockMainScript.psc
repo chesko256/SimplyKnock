@@ -4,10 +4,12 @@ import SimplyKnockSKSE
 import math
 
 Quest property _SimplyKnockDialogueQuest auto
+GlobalVariable property _SK_Setting_LogLevel auto
 GlobalVariable property _SK_Setting_SpeechSuccessChance auto
 ReferenceAlias property TalkingDoorAlias auto
 ReferenceAlias property FriendAlias auto
 Actor property PlayerRef auto
+Activator property _SK_InteriorStateMarker auto
 int property FormType_kNPC = 43 autoReadOnly
 Perk property _SK_KnockPerk auto
 SimplyKnockConditions property Conditions auto
@@ -52,6 +54,8 @@ VoiceType property MaleDrunk auto
 VoiceType property MaleCommoner auto
 VoiceType property MaleEvenToned auto
 VoiceType property MaleYoungEager auto
+VoiceType property MaleChild auto
+VoiceType property FemaleChild auto
 
 Activator property _SK_Door_MaleEvenTonedAccented auto
 Activator property _SK_Door_MaleCommonerAccented auto
@@ -92,7 +96,16 @@ Activator property _SK_Door_MaleDrunk auto
 Activator property _SK_Door_MaleCommoner auto
 Activator property _SK_Door_MaleEvenToned auto
 Activator property _SK_Door_MaleYoungEager auto
+Activator property _SK_Door_MaleChild auto
+Activator property _SK_Door_FemaleChild auto
+Activator property _SK_Door_MaleIndistinct auto
+Activator property _SK_Door_FemaleIndistinct auto
 
+; NegotiationState enum
+int nsReady 		 = 0
+int nsSuccess 		 = 1
+int nsInitialFailure = 2
+int nsFailure 		 = 3
 
 ; If a friend is in the cell, the friend always wins.
 ; If the door has a specific actor owner, look for that actor.
@@ -100,6 +113,8 @@ Activator property _SK_Door_MaleYoungEager auto
 
 VoiceType[] AllVoiceTypes
 Activator[] AllTalkingActivators
+
+ObjectReference property CurrentNegotiationStateMarker auto hidden
 
 ; TEST CODE
 Event OnInit()
@@ -151,6 +166,8 @@ function BuildVoiceTypeArrays()
 	AllVoiceTypes[36] = MaleCommoner
 	AllVoiceTypes[37] = MaleEvenToned
 	AllVoiceTypes[38] = MaleYoungEager
+	AllVoiceTypes[39] = MaleChild
+	AllVoiceTypes[40] = FemaleChild
 
 	AllTalkingActivators[0] = _SK_Door_MaleEvenTonedAccented
 	AllTalkingActivators[1] = _SK_Door_MaleCommonerAccented
@@ -191,12 +208,17 @@ function BuildVoiceTypeArrays()
 	AllTalkingActivators[36] = _SK_Door_MaleCommoner
 	AllTalkingActivators[37] = _SK_Door_MaleEvenToned
 	AllTalkingActivators[38] = _SK_Door_MaleYoungEager
+	AllTalkingActivators[39] = _SK_Door_MaleChild
+	AllTalkingActivators[40] = _SK_Door_FemaleChild
+	AllTalkingActivators[41] = _SK_Door_MaleIndistinct
+	AllTalkingActivators[42] = _SK_Door_FemaleIndistinct
 endFunction
 
 Event OnCrosshairRefChange(ObjectReference ref)
 	if ref
 		if ref.GetBaseObject() as Door
-			if GetLinkedDoor(ref)
+			ObjectReference linked_door = GetLinkedDoor(ref)
+			if linked_door
 				Conditions.HasLinkedDoor = true
 			else
 				Conditions.HasLinkedDoor = false
@@ -207,12 +229,14 @@ EndEvent
 
 ; Called from Perk
 function KnockOnDoor(ObjectReference akDoor)
-	debug.trace("Knocking...")
+	ResetFlags()
+
+	DebugLog(0, "Knocking...")
 	ObjectReference linked_door = GetLinkedDoor(akDoor)
 	if !linked_door
 		; Shouldn't get here; we should verify whether or not
 		; the door has a linked door before we call KnockOnDoor().
-		debug.trace("This door isn't linked!")
+		DebugLog(2, "Why was I allowed to knock on " + akDoor + "? This door isn't linked!")
 		return
 	endif
 	
@@ -228,6 +252,22 @@ function KnockOnDoor(ObjectReference akDoor)
 		Activator talking_door = GetTalkingDoor(found_actor.GetVoiceType(), found_actor.GetActorBase().GetSex())
 		ObjectReference my_talking_door = akDoor.PlaceAtMe(talking_door)
 		TalkingDoorAlias.ForceRefTo(my_talking_door)
+		
+		; Set the current negotiation state flags
+		bool allow_dialogue = true
+		int current_state
+		CurrentNegotiationStateMarker = GetNegotiationStateMarker(linked_door)
+		if CurrentNegotiationStateMarker
+			current_state = (CurrentNegotiationStateMarker as SimplyKnockInteriorState).NegotiationState
+			if current_state == nsReady || current_state == nsSuccess ; If door re-locked after previous success, treat the same
+
+			elseif current_state == nsInitialFailure
+				Conditions.NegotiationInitiallyFailed = true
+			elseif current_state == nsFailure
+
+			endif
+		endif
+
 
 		; Move the talking activator away from the player, to give the sense that the
 		; sound is muffled and coming through the door.
@@ -245,23 +285,22 @@ function KnockOnDoor(ObjectReference akDoor)
 endFunction
 
 Actor function KnockOnDoor_ActorOwner(ObjectReference linked_door, ActorBase actor_owner)
-	debug.trace("Looking for actor owner...")
 	Cell linked_cell = linked_door.GetParentCell()
 	Actor actor_owner_ref_in_cell = GetActorOwnerInCell(actor_owner, linked_cell)
 	if actor_owner_ref_in_cell
 		if IsFriendsWithPlayer(actor_owner_ref_in_cell)
-			debug.trace("I found actor owner " + actor_owner.GetName() + " inside owned cell " + linked_cell + ". We're friends!")
+			DebugLog(1, "I found actor owner " + actor_owner.GetName() + " inside owned cell " + linked_cell + ". We're friends!")
 			FriendAlias.ForceRefTo(actor_owner_ref_in_cell)
 			Conditions.FriendInside = true
 			return actor_owner_ref_in_cell
 		else
-			debug.trace("I found actor owner " + actor_owner.GetName() + " inside owned cell " + linked_cell + ".")
+			DebugLog(1, "I found actor owner " + actor_owner.GetName() + " inside owned cell " + linked_cell + ".")
 			FriendAlias.Clear()
 			Conditions.FriendInside = false
 			return actor_owner_ref_in_cell
 		endif
 	else
-		debug.trace("I couldn't find the owner inside.")
+		DebugLog(1, "I couldn't find the owner inside.")
 		return None
 	endif
 endFunction
@@ -285,18 +324,17 @@ Activator function GetTalkingDoor(VoiceType akVoiceType, int aiSex)
 endFunction
 
 Actor function KnockOnDoor_FactionOwner(ObjectReference linked_door)
-	debug.trace("Looking for faction owner...")
 	Cell linked_cell = linked_door.GetParentCell()
 	Faction faction_owner = linked_door.GetFactionOwner()
 
 	if !faction_owner
-		debug.trace("This door has no ownership!")
+		DebugLog(1, "This door has no ownership!")
 		return None
 	endif
 	
 	Actor[] present_owners = GetCellFactionOwnersInCell(faction_owner, linked_cell)
 	if !present_owners
-		debug.trace("I couldn't find any faction owners inside.")
+		DebugLog(1, "I couldn't find any faction owners inside.")
 		return None
 	endif
 
@@ -310,12 +348,12 @@ Actor function KnockOnDoor_FactionOwner(ObjectReference linked_door)
 
 	if chosen_owner
 		if IsFriendsWithPlayer(chosen_owner)
-			debug.trace("I found actor owner " + chosen_owner.GetActorBase().GetName() + " of faction " + faction_owner + " inside owned cell " + linked_cell + ". We're friends!")
+			DebugLog(1, "I found actor owner " + chosen_owner.GetActorBase().GetName() + " of faction " + faction_owner + " inside owned cell " + linked_cell + ". We're friends!")
 			FriendAlias.ForceRefTo(chosen_owner)
 			Conditions.FriendInside = true
 			return chosen_owner
 		else
-			debug.trace("I found actor owner " + chosen_owner.GetActorBase().GetName() + " of faction " + faction_owner + " inside owned cell " + linked_cell + ".")
+			DebugLog(1, "I found actor owner " + chosen_owner.GetActorBase().GetName() + " of faction " + faction_owner + " inside owned cell " + linked_cell + ".")
 			FriendAlias.Clear()
 			Conditions.FriendInside = false
 			return chosen_owner
@@ -326,8 +364,12 @@ Actor function KnockOnDoor_FactionOwner(ObjectReference linked_door)
 endFunction
 
 function NoAnswer()
-	debug.trace("No answer...")
+	DebugLog(1, "No answer...")
 	_SK_NoAnswerMsg.Show()
+endFunction
+
+ObjectReference function GetNegotiationStateMarker(ObjectReference akLinkedDoor)
+	return Game.FindClosestReferenceOfTypeFromRef(_SK_InteriorStateMarker, akLinkedDoor, 10.0)
 endFunction
 
 bool function IsFriendsWithPlayer(Actor akActor)
@@ -361,7 +403,7 @@ Actor[] function GetCellFactionOwnersInCell(Faction akFaction, Cell akCell)
 	Actor[] found_friends = new Actor[16]
 
 	int actor_count = akCell.GetNumRefs(FormType_kNPC)
-	debug.trace("There were " + actor_count + " actors in " + akCell)
+	DebugLog(0, "There were " + actor_count + " actors in " + akCell)
 	if actor_count == 0
 		; Return the empty array
 		return found_actors
@@ -425,6 +467,12 @@ function MakeCellPublic()
 
 endFunction
 
+function ResetFlags()
+	Conditions.NegotiationInitiallyFailed = false
+	Conditions.SpeechCheckSuccessful = false
+	CurrentNegotiationStateMarker = None
+endFunction
+
 int function ArrayCount(Actor[] myArray) global
 ; Counts the number of indices in this array that do not have a "none" type.
 	;		int myCount = number of indicies that are not "none"
@@ -472,3 +520,18 @@ float[] function GetOffsets(Actor akSource, Float afDistance = 100.0, float afOf
 	Offsets[1] = XDist
 	Return Offsets
 EndFunction
+
+function DebugLog(int aiSeverity, string asLogMessage)
+	int LOG_LEVEL = _SK_Setting_LogLevel.GetValueInt()
+	if LOG_LEVEL <= aiSeverity
+		if aiSeverity == 0
+			debug.trace("[SimplyKnock][Debug] " + asLogMessage)
+		elseif aiSeverity == 1
+			debug.trace("[SimplyKnock][Info] " + asLogMessage)
+		elseif aiSeverity == 2
+			debug.trace("[SimplyKnock][Warning] " + asLogMessage)
+		elseif aiSeverity == 3
+			debug.trace("[SimplyKnock][ERROR] " + asLogMessage)
+		endif
+	endif
+endFunction
