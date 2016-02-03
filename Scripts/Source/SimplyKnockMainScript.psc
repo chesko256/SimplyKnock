@@ -14,6 +14,7 @@ int property FormType_kNPC = 43 autoReadOnly
 Perk property _SK_KnockPerk auto
 SimplyKnockConditions property Conditions auto
 Message property _SK_NoAnswerMsg auto
+Topic property TimeToGo auto hidden
 
 VoiceType property MaleEvenTonedAccented auto
 VoiceType property MaleCommonerAccented auto
@@ -57,49 +58,53 @@ VoiceType property MaleYoungEager auto
 VoiceType property MaleChild auto
 VoiceType property FemaleChild auto
 
-Activator property _SK_Door_MaleEvenTonedAccented auto
-Activator property _SK_Door_MaleCommonerAccented auto
-Activator property _SK_Door_MaleGuard auto
-Activator property _SK_Door_MaleForsworn auto
-Activator property _SK_Door_MaleBandit auto
-Activator property _SK_Door_MaleNordCommander auto
-Activator property _SK_Door_MaleSoldier auto
-Activator property _SK_Door_FemaleShrill auto
-Activator property _SK_Door_FemaleDarkElf auto
-Activator property _SK_Door_MaleDarkElf auto
-Activator property _SK_Door_FemaleElfHaughty auto
-Activator property _SK_Door_MaleElfHaughty auto
-Activator property _SK_Door_FemaleArgonian auto
-Activator property _SK_Door_MaleArgonian auto
-Activator property _SK_Door_FemaleKhajiit auto
-Activator property _SK_Door_MaleKhajiit auto
-Activator property _SK_Door_FemaleOrc auto
-Activator property _SK_Door_MaleOrc auto
-Activator property _SK_Door_FemaleNord auto
-Activator property _SK_Door_MaleNord auto
-Activator property _SK_Door_FemaleCoward auto
-Activator property _SK_Door_FemaleCondescending auto
-Activator property _SK_Door_FemaleCommander auto
-Activator property _SK_Door_FemaleOldGrumpy auto
-Activator property _SK_Door_FemaleOldKindly auto
-Activator property _SK_Door_FemaleSultry auto
-Activator property _SK_Door_FemaleCommoner auto
-Activator property _SK_Door_FemaleEvenToned auto
-Activator property _SK_Door_FemaleYoungEager auto
-Activator property _SK_Door_MaleCoward auto
-Activator property _SK_Door_MaleBrute auto
-Activator property _SK_Door_MaleCondescending auto
-Activator property _SK_Door_MaleCommander auto
-Activator property _SK_Door_MaleOldGrumpy auto
-Activator property _SK_Door_MaleSlyCynical auto
-Activator property _SK_Door_MaleDrunk auto
-Activator property _SK_Door_MaleCommoner auto
-Activator property _SK_Door_MaleEvenToned auto
-Activator property _SK_Door_MaleYoungEager auto
-Activator property _SK_Door_MaleChild auto
-Activator property _SK_Door_FemaleChild auto
-Activator property _SK_Door_MaleIndistinct auto
-Activator property _SK_Door_FemaleIndistinct auto
+TalkingActivator property _SK_Door_MaleEvenTonedAccented auto
+TalkingActivator property _SK_Door_MaleCommonerAccented auto
+TalkingActivator property _SK_Door_MaleGuard auto
+TalkingActivator property _SK_Door_MaleForsworn auto
+TalkingActivator property _SK_Door_MaleBandit auto
+TalkingActivator property _SK_Door_MaleNordCommander auto
+TalkingActivator property _SK_Door_MaleSoldier auto
+TalkingActivator property _SK_Door_FemaleShrill auto
+TalkingActivator property _SK_Door_FemaleDarkElf auto
+TalkingActivator property _SK_Door_MaleDarkElf auto
+TalkingActivator property _SK_Door_FemaleElfHaughty auto
+TalkingActivator property _SK_Door_MaleElfHaughty auto
+TalkingActivator property _SK_Door_FemaleArgonian auto
+TalkingActivator property _SK_Door_MaleArgonian auto
+TalkingActivator property _SK_Door_FemaleKhajiit auto
+TalkingActivator property _SK_Door_MaleKhajiit auto
+TalkingActivator property _SK_Door_FemaleOrc auto
+TalkingActivator property _SK_Door_MaleOrc auto
+TalkingActivator property _SK_Door_FemaleNord auto
+TalkingActivator property _SK_Door_MaleNord auto
+TalkingActivator property _SK_Door_FemaleCoward auto
+TalkingActivator property _SK_Door_FemaleCondescending auto
+TalkingActivator property _SK_Door_FemaleCommander auto
+TalkingActivator property _SK_Door_FemaleOldGrumpy auto
+TalkingActivator property _SK_Door_FemaleOldKindly auto
+TalkingActivator property _SK_Door_FemaleSultry auto
+TalkingActivator property _SK_Door_FemaleCommoner auto
+TalkingActivator property _SK_Door_FemaleEvenToned auto
+TalkingActivator property _SK_Door_FemaleYoungEager auto
+TalkingActivator property _SK_Door_MaleCoward auto
+TalkingActivator property _SK_Door_MaleBrute auto
+TalkingActivator property _SK_Door_MaleCondescending auto
+TalkingActivator property _SK_Door_MaleCommander auto
+TalkingActivator property _SK_Door_MaleOldGrumpy auto
+TalkingActivator property _SK_Door_MaleSlyCynical auto
+TalkingActivator property _SK_Door_MaleDrunk auto
+TalkingActivator property _SK_Door_MaleCommoner auto
+TalkingActivator property _SK_Door_MaleEvenToned auto
+TalkingActivator property _SK_Door_MaleYoungEager auto
+TalkingActivator property _SK_Door_MaleChild auto
+TalkingActivator property _SK_Door_FemaleChild auto
+TalkingActivator property _SK_Door_MaleIndistinct auto
+TalkingActivator property _SK_Door_FemaleIndistinct auto
+
+; TODO:
+; check for dead actors
+; deprioritize children in list
 
 ; NegotiationState enum
 int nsReady 		 = 0
@@ -112,9 +117,10 @@ int nsFailure 		 = 3
 ; If the door has a faction owner, look for actors in that faction.
 
 VoiceType[] AllVoiceTypes
-Activator[] AllTalkingActivators
+TalkingActivator[] AllTalkingActivators
 
 ObjectReference property CurrentNegotiationStateMarker auto hidden
+ObjectReference property CurrentLinkedDoor auto hidden
 
 ; TEST CODE
 Event OnInit()
@@ -125,7 +131,7 @@ EndEvent
 
 function BuildVoiceTypeArrays()
 	AllVoiceTypes = new VoiceType[64]
-	AllTalkingActivators = new Activator[64]
+	AllTalkingActivators = new TalkingActivator[64]
 
 	AllVoiceTypes[0] = MaleEvenTonedAccented
 	AllVoiceTypes[1] = MaleCommonerAccented
@@ -217,8 +223,8 @@ endFunction
 Event OnCrosshairRefChange(ObjectReference ref)
 	if ref
 		if ref.GetBaseObject() as Door
-			ObjectReference linked_door = GetLinkedDoor(ref)
-			if linked_door
+			CurrentLinkedDoor = GetLinkedDoor(ref)
+			if CurrentLinkedDoor
 				Conditions.HasLinkedDoor = true
 			else
 				Conditions.HasLinkedDoor = false
@@ -232,20 +238,19 @@ function KnockOnDoor(ObjectReference akDoor)
 	ResetFlags()
 
 	DebugLog(0, "Knocking...")
-	ObjectReference linked_door = GetLinkedDoor(akDoor)
-	if !linked_door
+	if !CurrentLinkedDoor
 		; Shouldn't get here; we should verify whether or not
 		; the door has a linked door before we call KnockOnDoor().
 		DebugLog(2, "Why was I allowed to knock on " + akDoor + "? This door isn't linked!")
 		return
 	endif
 	
-	ActorBase actor_owner = linked_door.GetActorOwner()
+	ActorBase actor_owner = CurrentLinkedDoor.GetActorOwner()
 	Actor found_actor = None
 	if actor_owner
-		found_actor = KnockOnDoor_ActorOwner(linked_door, actor_owner)
+		found_actor = KnockOnDoor_ActorOwner(CurrentLinkedDoor, actor_owner)
 	else
-		found_actor = KnockOnDoor_FactionOwner(linked_door)
+		found_actor = KnockOnDoor_FactionOwner(CurrentLinkedDoor)
 	endif
 
 	if found_actor
@@ -256,29 +261,35 @@ function KnockOnDoor(ObjectReference akDoor)
 		; Set the current negotiation state flags
 		bool allow_dialogue = true
 		int current_state
-		CurrentNegotiationStateMarker = GetNegotiationStateMarker(linked_door)
+		CurrentNegotiationStateMarker = GetNegotiationStateMarker(CurrentLinkedDoor)
 		if CurrentNegotiationStateMarker
 			current_state = (CurrentNegotiationStateMarker as SimplyKnockInteriorState).NegotiationState
-			if current_state == nsReady || current_state == nsSuccess ; If door re-locked after previous success, treat the same
-
-			elseif current_state == nsInitialFailure
+			if current_state == nsInitialFailure
 				Conditions.NegotiationInitiallyFailed = true
 			elseif current_state == nsFailure
-
+				allow_dialogue = false
 			endif
 		endif
-
 
 		; Move the talking activator away from the player, to give the sense that the
 		; sound is muffled and coming through the door.
 		float[] talking_door_pos = GetOffsets(PlayerRef, 1400.0)
 		my_talking_door.MoveTo(PlayerRef, talking_door_pos[0], talking_door_pos[1])
+		
+		int i = 0
+		while !my_talking_door.Is3DLoaded() && i < 50
+			Utility.Wait(0.1)
+			i += 1
+		endWhile
 
-		Utility.Wait(1)
-		my_talking_door.Activate(PlayerRef)
-		Utility.Wait(30)
-		my_talking_door.Disable()
-		my_talking_door.Delete()
+		if allow_dialogue
+			my_talking_door.Activate(PlayerRef)
+		else
+			; Beat it!
+			; Have to resolve this manually. CK won't let you link automatic topics.
+			TimeToGo = Game.GetFormFromFile(0x0006AEA2, "Skyrim.esm") as Topic
+			(my_talking_door as _SK_TalkingDoor).SayGoAway(TimeToGo)
+		endif
 	else
 		NoAnswer()
 	endif
@@ -305,7 +316,7 @@ Actor function KnockOnDoor_ActorOwner(ObjectReference linked_door, ActorBase act
 	endif
 endFunction
 
-Activator function GetTalkingDoor(VoiceType akVoiceType, int aiSex)
+TalkingActivator function GetTalkingDoor(VoiceType akVoiceType, int aiSex)
 	int voice_type_count = VoiceTypeArrayCount(AllVoiceTypes)
 	int i = 0
 	while i < voice_type_count
@@ -317,9 +328,11 @@ Activator function GetTalkingDoor(VoiceType akVoiceType, int aiSex)
 
 	; We didn't find a voice type match. Default to Even Toned.
 	if aiSex == 1
-		return AllTalkingActivators[27]
+		; Indistinct Female
+		return AllTalkingActivators[42]
 	else
-		return AllTalkingActivators[37]
+		; Indistinct Male
+		return AllTalkingActivators[41]
 	endif
 endFunction
 
@@ -369,7 +382,9 @@ function NoAnswer()
 endFunction
 
 ObjectReference function GetNegotiationStateMarker(ObjectReference akLinkedDoor)
-	return Game.FindClosestReferenceOfTypeFromRef(_SK_InteriorStateMarker, akLinkedDoor, 10.0)
+	ObjectReference state_marker = Game.FindClosestReferenceOfTypeFromRef(_SK_InteriorStateMarker, akLinkedDoor, 10.0)
+	DebugLog(0, "Found state marker " + state_marker)
+	return state_marker
 endFunction
 
 bool function IsFriendsWithPlayer(Actor akActor)
@@ -452,15 +467,33 @@ function SetSpeechResult(bool abUseSpeechcraft = false)
 endFunction
 
 function SetResult_Succeeded()
-
+	DebugLog(1, "Success!")
+	ObjectReference state_marker = GetNegotiationStateMarker(CurrentLinkedDoor)
+	if !state_marker
+		DebugLog(0, "Generating new state marker.")
+		state_marker = CurrentLinkedDoor.PlaceAtMe(_SK_InteriorStateMarker)
+	endif
+	(state_marker as SimplyKnockInteriorState).NegotiationState = nsSuccess
 endFunction
 
 function SetResult_FailedInitial()
-
+	DebugLog(1, "Initially failed!")
+	ObjectReference state_marker = GetNegotiationStateMarker(CurrentLinkedDoor)
+	if !state_marker
+		DebugLog(0, "Generating new state marker.")
+		state_marker = CurrentLinkedDoor.PlaceAtMe(_SK_InteriorStateMarker)
+	endif
+	(state_marker as SimplyKnockInteriorState).NegotiationState = nsInitialFailure
 endFunction
 
 function SetResult_Failed()
-
+	DebugLog(1, "Failed!")
+	ObjectReference state_marker = GetNegotiationStateMarker(CurrentLinkedDoor)
+	if !state_marker
+		DebugLog(0, "Generating new state marker.")
+		state_marker = CurrentLinkedDoor.PlaceAtMe(_SK_InteriorStateMarker)
+	endif
+	(state_marker as SimplyKnockInteriorState).NegotiationState = nsFailure
 endFunction
 
 function MakeCellPublic()
