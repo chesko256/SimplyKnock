@@ -6,6 +6,9 @@ import math
 Quest property _SimplyKnockDialogueQuest auto
 GlobalVariable property _SK_Setting_LogLevel auto
 GlobalVariable property _SK_Setting_SpeechSuccessChance auto
+Keyword property LocTypeHouse auto
+Keyword property LocTypeDwelling auto
+Keyword property LocTypeFarm auto
 ReferenceAlias property TalkingDoorAlias auto
 ReferenceAlias property FriendAlias auto
 ReferenceAlias property OwnerAlias auto
@@ -119,7 +122,7 @@ int nsFailure 		 = 3
 VoiceType[] AllVoiceTypes
 TalkingActivator[] AllTalkingActivators
 
-ObjectReference property CurrentNegotiationStateMarker auto hidden
+ObjectReference property CurrentStateMarker auto hidden
 ObjectReference property CurrentDoor auto hidden
 Actor property CurrentSpeaker auto hidden
 
@@ -128,6 +131,17 @@ Event OnInit()
 	RegisterForCrosshairRef()
 	PlayerRef.AddPerk(_SK_KnockPerk)
 	BuildVoiceTypeArrays()
+	; DEBUG
+	RegisterForSingleUpdate(2)
+EndEvent
+
+Event OnUpdate()
+	DebugLog(0, "Current state marker: " + CurrentStateMarker)
+	if CurrentStateMarker
+		DebugLog(0, "Player is in owner faction: " + PlayerRef.IsInFaction((CurrentStateMarker as SimplyKnockInteriorState).EntryFaction))
+	endif
+	DebugLog(0, "Player Trespassing: " + PlayerRef.IsTrespassing())
+	RegisterForSingleUpdate(2)
 EndEvent
 
 function BuildVoiceTypeArrays()
@@ -226,10 +240,14 @@ Event OnCrosshairRefChange(ObjectReference ref)
 		if ref.GetBaseObject() as Door
 			ObjectReference linked_door = GetLinkedDoor(ref)
 			if linked_door
-				Conditions.HasLinkedDoor = true
-				CurrentDoor = ref
+				Location linked_door_location = linked_door.GetCurrentLocation()
+				if linked_door_location.HasKeyword(LocTypeHouse) || linked_door_location.HasKeyword(LocTypeDwelling) || linked_door_location.HasKeyword(LocTypeFarm)
+					Conditions.IsKnockableDoor = true
+				else
+					Conditions.IsKnockableDoor = false
+				endif
 			else
-				Conditions.HasLinkedDoor = false
+				Conditions.IsKnockableDoor = false
 				CurrentDoor = ref
 			endif
 		endif
@@ -270,9 +288,9 @@ function KnockOnDoor(ObjectReference akDoor)
 		; Set the current negotiation state flags
 		bool allow_dialogue = true
 		int current_state
-		CurrentNegotiationStateMarker = GetStateMarker(akDoor)
-		if CurrentNegotiationStateMarker
-			current_state = (CurrentNegotiationStateMarker as SimplyKnockInteriorState).NegotiationState
+		CurrentStateMarker = GetStateMarker(akDoor)
+		if CurrentStateMarker
+			current_state = (CurrentStateMarker as SimplyKnockInteriorState).NegotiationState
 			if current_state == nsInitialFailure
 				Conditions.NegotiationInitiallyFailed = true
 			elseif current_state == nsFailure
@@ -487,17 +505,25 @@ endFunction
 
 function SetResult_Succeeded()
 	DebugLog(1, "Success!")
-	ObjectReference state_marker = GetStateMarker(CurrentDoor)
-	if !state_marker
-		state_marker = GenerateStateMarker(CurrentDoor)
+	CurrentStateMarker = GetStateMarker(CurrentDoor)
+	if !CurrentStateMarker
+		CurrentStateMarker = GenerateStateMarker(CurrentDoor)
 	endif
-	(state_marker as SimplyKnockInteriorState).NegotiationState = nsSuccess
+	(CurrentStateMarker as SimplyKnockInteriorState).NegotiationState = nsSuccess
+
+	; We do this to possibly run a package.
 	ObjectReference linked_door = GetLinkedDoor(CurrentDoor)
 	Faction entry_faction = linked_door.GetFactionOwner()
 	DoorAlias.ForceRefTo(linked_door)
 	OwnerAlias.ForceRefTo(CurrentSpeaker)
+	
+	; Necessary to stop "Get Out" dialogue.
 	PlayerRef.AddtoFaction(entry_faction)
-	(state_marker as SimplyKnockInteriorState).EntryFaction = entry_faction
+	(CurrentStateMarker as SimplyKnockInteriorState).EntryFaction = entry_faction
+
+	; Necessary to keep the door unlocked.
+	CurrentDoor.Lock(false, true)
+	
 	Utility.Wait(1.0)
 	_SK_UnlockSound.Play(CurrentDoor)
 	RegisterForSingleUpdateGameTime(8.0)
@@ -505,20 +531,20 @@ endFunction
 
 function SetResult_FailedInitial()
 	DebugLog(1, "Initially failed!")
-	ObjectReference state_marker = GetStateMarker(CurrentDoor)
-	if !state_marker
-		state_marker = GenerateStateMarker(CurrentDoor)
+	CurrentStateMarker = GetStateMarker(CurrentDoor)
+	if !CurrentStateMarker
+		CurrentStateMarker = GenerateStateMarker(CurrentDoor)
 	endif
-	(state_marker as SimplyKnockInteriorState).NegotiationState = nsInitialFailure
+	(CurrentStateMarker as SimplyKnockInteriorState).NegotiationState = nsInitialFailure
 endFunction
 
 function SetResult_Failed()
 	DebugLog(1, "Failed!")
-	ObjectReference state_marker = GetStateMarker(CurrentDoor)
-	if !state_marker
-		state_marker = GenerateStateMarker(CurrentDoor)
+	CurrentStateMarker = GetStateMarker(CurrentDoor)
+	if !CurrentStateMarker
+		CurrentStateMarker = GenerateStateMarker(CurrentDoor)
 	endif
-	(state_marker as SimplyKnockInteriorState).NegotiationState = nsFailure
+	(CurrentStateMarker as SimplyKnockInteriorState).NegotiationState = nsFailure
 endFunction
 
 ObjectReference function GetStateMarker(ObjectReference akDoor)
@@ -542,7 +568,7 @@ endFunction
 function ResetFlags()
 	Conditions.NegotiationInitiallyFailed = false
 	Conditions.SpeechCheckSuccessful = false
-	CurrentNegotiationStateMarker = None
+	CurrentStateMarker = None
 	CurrentSpeaker = None
 	OwnerAlias.Clear()
 	DoorAlias.Clear()
@@ -552,6 +578,7 @@ function ClearAllowedEntry()
 	Actor owner = OwnerAlias.GetActorRef()
 	if owner
 		OwnerAlias.Clear()
+		; Force to re-eval package stack. Should cause door to get locked behind player.
 		owner.EvaluatePackage()
 	endif
 	DoorAlias.Clear()
