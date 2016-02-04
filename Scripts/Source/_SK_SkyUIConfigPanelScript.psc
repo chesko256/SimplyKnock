@@ -52,44 +52,38 @@ function PageReset_SaveLoad()
 	SetCursorFillMode(TOP_TO_BOTTOM)
 
 	AddHeaderOption("$SimplyKnockSaveLoadHeaderProfile")
-	if Compatibility.isSKSELoaded
-		if _SK_Setting_AutoSaveLoad.GetValueInt() == 2
-			SaveLoad_SelectProfile_OID = AddMenuOption("$SimplyKnockSaveLoadCurrentProfile", GetProfileName(_SK_Setting_CurrentProfile.GetValueInt()))
-		else
-			SaveLoad_SelectProfile_OID = AddMenuOption("$SimplyKnockSaveLoadCurrentProfile", GetProfileName(_SK_Setting_CurrentProfile.GetValueInt()), OPTION_FLAG_DISABLED)
-		endif
-		AddEmptyOption()
-		AddEmptyOption()
-		AddEmptyOption()
-		AddEmptyOption()
-		AddEmptyOption()
-		AddEmptyOption()
-		AddEmptyOption()
-		AddEmptyOption()
-		SaveLoad_ProfileHelp_OID = AddTextOption("$SimplyKnockSaveLoadAboutProfiles", "")
-		if _SK_Setting_AutoSaveLoad.GetValueInt() == 2
-			SaveLoad_Enable_OID = AddToggleOption("$SimplyKnockSaveLoadEnable", true)
-		else
-			SaveLoad_Enable_OID = AddToggleOption("$SimplyKnockSaveLoadEnable", false)
-		endif
+	if _SK_Setting_AutoSaveLoad.GetValueInt() == 2
+		SaveLoad_SelectProfile_OID = AddMenuOption("$SimplyKnockSaveLoadCurrentProfile", GetProfileName(_SK_Setting_CurrentProfile.GetValueInt()))
 	else
-		AddTextOption("$SimplyKnockSKSE173Required", "", OPTION_FLAG_DISABLED)
+		SaveLoad_SelectProfile_OID = AddMenuOption("$SimplyKnockSaveLoadCurrentProfile", GetProfileName(_SK_Setting_CurrentProfile.GetValueInt()), OPTION_FLAG_DISABLED)
 	endif
-
+	AddEmptyOption()
+	AddEmptyOption()
+	AddEmptyOption()
+	AddEmptyOption()
+	AddEmptyOption()
+	AddEmptyOption()
+	AddEmptyOption()
+	AddEmptyOption()
+	SaveLoad_ProfileHelp_OID = AddTextOption("$SimplyKnockSaveLoadAboutProfiles", "")
+	if _SK_Setting_AutoSaveLoad.GetValueInt() == 2
+		SaveLoad_Enable_OID = AddToggleOption("$SimplyKnockSaveLoadEnable", true)
+	else
+		SaveLoad_Enable_OID = AddToggleOption("$SimplyKnockSaveLoadEnable", false)
+	endif
+	
 	SetCursorPosition(1) ; Move cursor to top right position
 
 	AddEmptyOption()
-	if Compatibility.isSKSELoaded
-		if _SK_Setting_AutoSaveLoad.GetValueInt() == 2
-			SKI_Main skyui = Game.GetFormFromFile(0x00000814, "SkyUI.esp") as SKI_Main
-			int version = skyui.ReqSWFRelease
-			if version >= 1026 	; SkyUI 5.1+
-				SaveLoad_RenameProfile_OID = AddInputOption("", "$SimplyKnockSaveLoadRenameProfile")
-			else
-				SaveLoad_RenameProfile_OID = AddTextOption("$SimplyKnockSkyUI51Required", "$SimplyKnockSaveLoadRenameProfile", OPTION_FLAG_DISABLED)
-			endif
-			SaveLoad_DefaultProfile_OID = AddTextOption("", "$SimplyKnockSaveLoadDefaultProfile")
+	if _SK_Setting_AutoSaveLoad.GetValueInt() == 2
+		SKI_Main skyui = Game.GetFormFromFile(0x00000814, "SkyUI.esp") as SKI_Main
+		int version = skyui.ReqSWFRelease
+		if version >= 1026 	; SkyUI 5.1+
+			SaveLoad_RenameProfile_OID = AddInputOption("", "$SimplyKnockSaveLoadRenameProfile")
+		else
+			SaveLoad_RenameProfile_OID = AddTextOption("$SimplyKnockSkyUI51Required", "$SimplyKnockSaveLoadRenameProfile", OPTION_FLAG_DISABLED)
 		endif
+		SaveLoad_DefaultProfile_OID = AddTextOption("", "$SimplyKnockSaveLoadDefaultProfile")
 	endif
 	AddEmptyOption()
 	AddEmptyOption()
@@ -99,7 +93,7 @@ function PageReset_SaveLoad()
 	AddEmptyOption()
 	AddEmptyOption()
 	AddEmptyOption()
-	if Compatibility.isSKSELoaded && _SK_Setting_AutoSaveLoad.GetValueInt() == 2
+	if _SK_Setting_AutoSaveLoad.GetValueInt() == 2
 		AddTextOption("$SimplyKnockSaveLoadSettingsSaved", "", OPTION_FLAG_DISABLED)
 	endif
 endFunction
@@ -184,12 +178,12 @@ event OnOptionDefault(int option)
 		_SK_Setting_SpeechSuccessChance.SetValue(0.5)
 		SetSliderOptionValue(Settings_SpeechSuccessChance_OID, 50.0, "{0}%")
 		ForcePageReset()
-		SaveSettingToCurrentProfile("speech_success_chance", _SK_Setting_SpeechSuccessChance.GetValue())
+		SaveSettingToCurrentProfileFloat("speech_success_chance", _SK_Setting_SpeechSuccessChance.GetValue())
 	elseif option == Settings_StateTimeoutDuration_OID
 		_SK_Setting_StateTimeoutDuration.SetValue(24.0)
 		SetSliderOptionValue(Settings_StateTimeoutDuration_OID, 24.0, "{0} Hours")
 		ForcePageReset()
-		SaveSettingToCurrentProfile("state_timeout_duration", _SK_Setting_StateTimeoutDuration.GetValue())
+		SaveSettingToCurrentProfileFloat("state_timeout_duration", _SK_Setting_StateTimeoutDuration.GetValue())
 	elseif option == Settings_FriendsAllowEntryToggle_OID
 		_SK_Setting_FriendsAllowEntry.SetValueInt(2)
 		SetToggleOptionValue(Settings_FriendsAllowEntryToggle_OID, true)
@@ -240,11 +234,11 @@ event OnOptionSliderAccept(int option, float value)
 	if option == Settings_SpeechSuccessChance_OID
 		_SK_Setting_SpeechSuccessChance.SetValue(value / 100.0)
 		SetSliderOptionValue(Settings_SpeechSuccessChance_OID, value, "{0}%")
-		SaveSettingToCurrentProfile("speech_success_chance", _SK_Setting_SpeechSuccessChance.GetValue())
+		SaveSettingToCurrentProfileFloat("speech_success_chance", _SK_Setting_SpeechSuccessChance.GetValue())
 	elseif option == Settings_StateTimeoutDuration_OID
 		_SK_Setting_StateTimeoutDuration.SetValue(value)
 		SetSliderOptionValue(Settings_StateTimeoutDuration_OID, value, "{0} Hours")
-		SaveSettingToCurrentProfile("state_timeout_duration", _SK_Setting_StateTimeoutDuration.GetValue())
+		SaveSettingToCurrentProfileFloat("state_timeout_duration", _SK_Setting_StateTimeoutDuration.GetValue())
 	endif
 endEvent
 
@@ -280,6 +274,14 @@ endFunction
 
 function SetProfileName(int aiProfileIndex, string asProfileName)
 	JsonUtil.SetStringValue(CONFIG_PATH + "profile" + aiProfileIndex, "profile_name", asProfileName)
+endFunction
+
+function SaveSettingToCurrentProfileFloat(string asKeyName, float afValue)
+	if _SK_Setting_AutoSaveLoad.GetValueInt() == 2
+		int current_profile_index = _SK_Setting_CurrentProfile.GetValueInt()
+		JsonUtil.SetFloatValue(CONFIG_PATH + "profile" + current_profile_index, asKeyName, afValue)
+		JsonUtil.Save(CONFIG_PATH + "profile" + current_profile_index)
+	endif
 endFunction
 
 function SaveSettingToCurrentProfile(string asKeyName, int aiValue)
