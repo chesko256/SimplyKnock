@@ -80,6 +80,8 @@ Compatibility
 
 * This mod uses a perk in order to override the activation of doors. If you use another mod that also uses a perk to override door activation, it will be incompatible with Simply Knock.
 
+* Includes StorageUtil.dll and JsonUtil.pex/psc from PapyrusUtil 3.2. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
+
 * Other than those specific cases above, should be compatible with everything.
 
 
@@ -92,6 +94,4 @@ Credits
 
 TODO
 ----
-* Determine if animations are possible.
 * Hook up SFX.
-* Hook up Settings Profiles.
