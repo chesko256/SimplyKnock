@@ -88,6 +88,7 @@ Credits
 * Credit to the SKSE team.
 * Huge thanks to PurpleLunchBox and Verteiron for helping me create my first SKSE plugin!
 * Includes portions of PapyrusUtil 3.2.
+* DoorGlassKnock 166 from FreeSoundEffects.com. (http://www.freesoundeffects.com/track/doorglassknock-166-438782/knock%20door/, http://www.freesoundeffects.com/licence.php)
 
 TODO
 ----
