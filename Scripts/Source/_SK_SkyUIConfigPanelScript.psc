@@ -38,7 +38,7 @@ function PageReset_Settings()
 	SetCursorFillMode(TOP_TO_BOTTOM)
 
 	AddHeaderOption("$SimplyKnockHeaderSettings")
-	Settings_SpeechSuccessChance_OID = AddSliderOption("$SimplyKnockSettingsSuccessChance", _SK_Setting_SpeechSuccessChance.GetValueInt() * 100.0, "{0}%")
+	Settings_SpeechSuccessChance_OID = AddSliderOption("$SimplyKnockSettingsSuccessChance", _SK_Setting_SpeechSuccessChance.GetValue() * 100.0, "{0}%")
 	Settings_StateTimeoutDuration_OID = AddSliderOption("$SimplyKnockSettingsTimeoutDuration", _SK_Setting_StateTimeoutDuration.GetValueInt(), "{0} Hours")
 
 	if _SK_Setting_FriendsAllowEntry.GetValueInt() == 2
@@ -219,7 +219,7 @@ endEvent
 
 event OnOptionSliderOpen(int option)
 	if option == Settings_SpeechSuccessChance_OID
-		SetSliderDialogStartValue(_SK_Setting_SpeechSuccessChance.GetValue())
+		SetSliderDialogStartValue(_SK_Setting_SpeechSuccessChance.GetValue() * 100.0)
 		SetSliderDialogDefaultValue(50.0)
 		SetSliderDialogRange(0.0, 100.0)
 		SetSliderDialogInterval(1.0)
