@@ -6,6 +6,12 @@ All house doors in Skyrim can be knocked on if locked, as well as some businesse
 
 If you need a quiet place to stay the night, or want to visit someone you know at odd hours, just knock on the door like a normal civilized person. Also useful for checking to see if anyone's home before you commit your next burglary.
 
+My goal was to make a very simple, no-nonsense mod that had a place in almost everyone's game, regardless of mod tastes or playstyle.
+
+Change Log
+----------
+The latest changes are documented on Simply Knock's change log on **[Evernote](https://www.evernote.com/shard/s53/sh/996bc3d6-e15f-48b0-b4c8-d8ea1281a38a/33ee88c997a62a02d65a40799e2818b1)**.
+
 How To Use
 ----------
 Click on any locked residence in Skyrim. Instead of the lockpicking screen, you will be given the choices of "Knock", "Leave", and "Unlock". If someone is home, they will answer the door. You can talk to them through the door and try to bargain your way in. People that are your friend always allow you to enter (configurable), so being helpful pays off.
@@ -19,6 +25,18 @@ Requirements
 * Skyrim 1.9.32.0
 * SKSE 1.7.3+
 * SkyUI 4.1+ (SkyUI-Away is fine)
+
+Installation
+------------
+Just install as normal with your mod manager of choice. If conflicts arise due to PapyrusUtil components (JsonUtil, StorageUtil), choose to overwrite those components, and / or load this mod as close to last as you can in your load order (in Mod Organizer, with highest Priority value possible). This is not a source of a conflict; please do not create a bug report about this.
+
+Uninstallation
+--------------
+* Go to an exterior cell.
+* Wait 48 hours in-game.
+* Save your game.
+* Uninstall the mod.
+
 
 How This Mod Came To Be
 -----------------------
@@ -83,6 +101,28 @@ Compatibility
 * Includes StorageUtil.dll and JsonUtil.pex/psc from PapyrusUtil 3.2. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
 
 * Other than those specific cases above, should be compatible with everything.
+
+FAQ
+---
+* Does this mod use scripts?
+Yes.
+
+* Is this mod "script heavy"? Will it impact my performance?
+No.
+
+* Does this mod use any always-on, frequently-running background scripts?
+No.
+
+* Is it compatible with (insert mod here)?
+It is very, very likely that it is. See Compatibility section for details.
+
+* Has this mod been cleaned with TES5Edit?
+Yes.
+
+* Can I ding dong dash?
+Nice one, chucklehead.
+
+But seriously, I had a rather aggressive development timeline for the first release (5 days) and it simply wasn't important enough. It also has a high likelihood of leading to unwanted behavior.
 
 Credits
 -------
