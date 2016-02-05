@@ -1,7 +1,5 @@
 ![Simply Knock](http://i.imgur.com/rOMekDz.png)
 
-# Simply Knock
-
 **Simply Knock** is the first feature-complete mod that allows you to **knock on locked doors of houses in Skyrim**. If anyone is home, they will answer the door! You can then flex your speechcraft skills in order to get them to allow you inside. If someone inside is a friend, they will always permit you to enter.
 
 All house doors in Skyrim can be knocked on if locked, as well as some businesses where people live (farms, stores, etc).
