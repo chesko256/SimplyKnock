@@ -30,7 +30,7 @@ Installation
 ------------
 Just install as normal with your mod manager of choice. If conflicts arise due to PapyrusUtil components (JsonUtil, StorageUtil), choose to overwrite those components, and / or load this mod as close to last as you can in your load order (in Mod Organizer, with highest Priority value possible). This is not a source of a conflict; please do not create a bug report about this.
 
-Please **do not** unpack the BSA archive. This can lead to unwanted behavior if installing an update to this mod. If you want to look at or download the source code, please clone [the GitHub repository](https://github.com/chesko256/SimplyKnock).
+Please **do not** unpack the BSA archive into your Skyrim / mod installation directory. This can lead to unwanted behavior if installing an update to this mod. If you want to look at or download the source code, please clone [the GitHub repository](https://github.com/chesko256/SimplyKnock).
 
 Uninstallation
 --------------
