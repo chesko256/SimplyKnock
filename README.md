@@ -6,7 +6,7 @@ All house doors in Skyrim can be knocked on if locked, as well as some businesse
 
 If you need a quiet place to stay the night, or want to visit someone you know at odd hours, just knock on the door like a normal civilized person. Also useful for checking to see if anyone's home before you commit your next burglary.
 
-My goal was to make a very simple, no-nonsense mod that had a place in almost everyone's game, regardless of mod tastes or playstyle.
+My goal was to make a very simple, lightweight, no-nonsense mod that had a place in almost everyone's game, regardless of mod tastes or playstyle.
 
 Change Log
 ----------
@@ -126,10 +126,11 @@ It is very, very likely that it is. See Compatibility section for details.
 * **Has this mod been cleaned with TES5Edit?**    
 Yes.
 
-* **Can I ding dong dash?**    
-Nice one, chucklehead.
+* **Does this mod include an MCM translated into my language?**    
+A machine translation of the MCM is included with the mod for your convenience for all languages that SkyUI supports, to ensure that the widest number of non-English users can more-or-less navigate the mod's options. A real translation is most likely desirable; reach out to your favorite translator, or feel free to translate it yourself.
 
-But seriously, I had a rather aggressive development timeline for the first release (5 days) and it simply wasn't important enough. It also has a high likelihood of leading to unwanted behavior.
+* **Can I ding dong dash?**    
+Nice one, chucklehead. But seriously, I thought about it, but I had a rather aggressive development timeline for the release (5 days) and it simply wasn't important enough. It also has a high likelihood of leading to unwanted behavior.
 
 Credits
 -------
