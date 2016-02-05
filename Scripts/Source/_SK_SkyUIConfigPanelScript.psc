@@ -212,6 +212,7 @@ event OnOptionMenuAccept(int option, int index)
 		bool b = ShowMessage("$SimplyKnockSaveLoadConfirm")
 		if b
 			SwitchToProfile(index + 1)
+			ForcePageReset()
 		endif
 	endif
 endEvent

@@ -3,24 +3,25 @@ scriptname SimplyKnockMainScript extends Quest
 import SimplyKnockSKSE
 import math
 
-Quest property _SimplyKnockDialogueQuest auto
+SimplyKnockConditions property Conditions auto
+
+int property FormType_kNPC = 43 autoReadOnly
+
+Actor property PlayerRef auto
+Activator property _SK_InteriorStateMarker auto
 GlobalVariable property _SK_Setting_LogLevel auto
 GlobalVariable property _SK_Setting_SpeechSuccessChance auto
 Keyword property LocTypeHouse auto
 Keyword property LocTypeDwelling auto
 Keyword property LocTypeFarm auto
+Message property _SK_NoAnswerMsg auto
+Quest property _SimplyKnockDialogueQuest auto
 ReferenceAlias property TalkingDoorAlias auto
 ReferenceAlias property FriendAlias auto
 ReferenceAlias property OwnerAlias auto
 ReferenceAlias property DoorAlias auto
+Sound property _SK_DoorKnockSM auto
 Sound property _SK_UnlockSound auto
-
-Actor property PlayerRef auto
-Activator property _SK_InteriorStateMarker auto
-int property FormType_kNPC = 43 autoReadOnly
-Perk property _SK_KnockPerk auto
-SimplyKnockConditions property Conditions auto
-Message property _SK_NoAnswerMsg auto
 Topic property TimeToGo auto hidden
 
 VoiceType property MaleEvenTonedAccented auto
@@ -124,24 +125,6 @@ TalkingActivator[] AllTalkingActivators
 
 ObjectReference property CurrentDoor auto hidden
 Actor property CurrentSpeaker auto hidden
-
-; TEST CODE
-Event OnInit()
-	RegisterForCrosshairRef()
-	PlayerRef.AddPerk(_SK_KnockPerk)
-	BuildVoiceTypeArrays()
-EndEvent
-
-Event OnUpdate()
-	ObjectReference state_marker = GetStateMarker(CurrentDoor)
-	DebugLog(0, "Current state marker: " + state_marker)
-	if state_marker
-		DebugLog(0, "Stored owner faction: " + (state_marker as SimplyKnockInteriorState).EntryFaction)
-		DebugLog(0, "Player is in owner faction: " + PlayerRef.IsInFaction((state_marker as SimplyKnockInteriorState).EntryFaction))
-	endif
-	DebugLog(0, "Player Trespassing: " + PlayerRef.IsTrespassing())
-	RegisterForSingleUpdate(2)
-EndEvent
 
 function BuildVoiceTypeArrays()
 	AllVoiceTypes = new VoiceType[64]
@@ -259,10 +242,13 @@ function KnockOnDoor(ObjectReference akDoor)
 	ResetFlags()
 
 	DebugLog(0, "Knocking...")
+	_SK_DoorKnockSM.Play(akDoor)
+
+	; Wait, then respond
+	Utility.Wait(2.5)
+
 	ObjectReference linked_door = GetLinkedDoor(akDoor)
 	if !linked_door
-		; Shouldn't get here; we should verify whether or not
-		; the door has a linked door before we call KnockOnDoor().
 		DebugLog(2, "Why was I allowed to knock on " + akDoor + "? This door isn't linked!")
 		return
 	endif
@@ -517,9 +503,11 @@ function SetResult_Succeeded()
 	(state_marker as SimplyKnockInteriorState).InteriorLocation = linked_door.GetCurrentLocation()	
 	
 	; Necessary to stop "Get Out" dialogue.
-	PlayerRef.AddtoFaction(entry_faction)
-	(state_marker as SimplyKnockInteriorState).EntryFaction = entry_faction
-
+	if entry_faction
+		PlayerRef.AddtoFaction(entry_faction)
+		(state_marker as SimplyKnockInteriorState).EntryFaction = entry_faction
+	endif
+	
 	; Necessary to keep the door unlocked.
 	CurrentDoor.Lock(false, true)
 	
