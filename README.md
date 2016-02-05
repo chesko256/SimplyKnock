@@ -96,7 +96,3 @@ Permissions
 * You are not allowed to re-upload this file, in whole or in part, anywhere, for any reason, without the author's written permission, with the exception of free use of the SKSE C++ project / implementation of GetLinkedDoor() as mentioned in the Compatibility section.
 * You may translate this mod into a language other than English and upload the portions of the mod required for that translation (such as the plug-in file and the MCM Translation text files), without permission; you already have permission. Your translation **must** require that the user download the main, English-version mod in order to work. No stand-alone translations.
 * If I cannot be reasonably reached via e-mail, Reddit, PM, or Twitter for 6 months, this mod becomes public domain and free for anyone to use and redistribute for any reason.
-
-TODO
-----
-* Hook up SFX.
