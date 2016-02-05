@@ -104,22 +104,22 @@ Compatibility
 
 FAQ
 ---
-* Does this mod use scripts?
+* Does this mod use scripts?    
 Yes.
 
-* Is this mod "script heavy"? Will it impact my performance?
+* Is this mod "script heavy"? Will it impact my performance?    
 No.
 
-* Does this mod use any always-on, frequently-running background scripts?
+* Does this mod use any always-on, frequently-running background scripts?    
 No.
 
-* Is it compatible with (insert mod here)?
+* Is it compatible with (insert mod here)?    
 It is very, very likely that it is. See Compatibility section for details.
 
-* Has this mod been cleaned with TES5Edit?
+* Has this mod been cleaned with TES5Edit?    
 Yes.
 
-* Can I ding dong dash?
+* Can I ding dong dash?    
 Nice one, chucklehead.
 
 But seriously, I had a rather aggressive development timeline for the first release (5 days) and it simply wasn't important enough. It also has a high likelihood of leading to unwanted behavior.
