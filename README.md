@@ -55,14 +55,14 @@ Performance and Design
 ----------------------
 Obviously, since this mod implements somewhat complex behavior, this mod requires scripting. However, there are no always-running, background scripts. This mod should not impact you performance at all on an ordinary basis.
 
-When you succeed or fail a persuasion/intimidation check, a small invisible marker is placed near the door, which has a small script that stores this data, but otherwise does nothing. This way the mod can "remember" if you've tried this door already and what the result was. After 24 hours, the marker deletes itself, so the mod "forgets" the attempt and you can try again.
+When you succeed or fail a persuasion/intimidation check, a small invisible marker is placed near the door, which has a small script that stores this data, but otherwise does nothing. This way the mod can "remember" if you've tried this door already and what the result was. After 24 hours (configurable), the marker deletes itself, so the mod "forgets" the attempt and you can try again.
 
-The mod uses one new AI package (applied dynamically) to keep the person that answered the door awake and out of bed for the duration of your visit. The person who answered will revert back to normal behavior as soon as you leave.
+The mod uses one new AI package (applied dynamically) to keep the person that answered the door awake and out of bed for the duration of your visit. The person who answered will revert back to normal behavior as soon as you leave, almost always locking the door behind you.
 
 
 How It's Different
 ------------------
-Why hasn't a mod like this been made already? Well, a few have, but they haven't been very successful because of missing information.
+Why hasn't a mod like this been made already? A few have, but up until now they've all had some critical shortcomings.
 
 What makes this mod unique is that it solves a difficult problem: discovering what cell a door leads to.
 
@@ -84,13 +84,18 @@ Compatibility
 
 * Other than those specific cases above, should be compatible with everything.
 
-
 Credits
 -------
 * Credit to the SKSE team.
 * Huge thanks to PurpleLunchBox and Verteiron for helping me create my first SKSE plugin!
 * Includes portions of PapyrusUtil 3.2.
 * DoorGlassKnock 166 from FreeSoundEffects.com. (http://www.freesoundeffects.com/track/doorglassknock-166-438782/knock%20door/, http://www.freesoundeffects.com/licence.php)
+
+Permissions
+-----------
+* You are not allowed to re-upload this file, in whole or in part, anywhere, for any reason, without the author's written permission, with the exception of free use of the SKSE C++ project / implementation of GetLinkedDoor().
+* You may translate this mod into a language other than English and upload the portions of the mod required for that translation, without permission; you already have permission. Your translation **must** require that the user download the main, English-version mod in order to work. No stand-alone translations.
+* If I cannot be reasonably reached via e-mail, Reddit, PM, or Twitter for 6 months, this mod becomes public domain and free for anyone to use and redistribute for any reason.
 
 TODO
 ----
