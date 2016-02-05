@@ -33,13 +33,13 @@ os.makedirs('./tmp/Data/sound/fx')
 
 # Copy the project files
 print "Copying project files..."
-with open("./Simply Knock/SimplyKnockArchiveManifest.txt") as manifest:
+with open("./SimplyKnock/SimplyKnockArchiveManifest.txt") as manifest:
     lines = manifest.readlines()
     for line in lines:
         shutil.copy(".\\SimplyKnock\\" + line.rstrip('\n'), tempdir + line.rstrip('\n'))
 
 # Build the directories
-dirname = "./Simply Knock " + user_input + " Release"
+dirname = "./SimplyKnock " + user_input + " Release"
 if not os.path.isdir(dirname):
     print "Creating new build..."
     os.mkdir(dirname)
@@ -57,7 +57,7 @@ shutil.copy('./SimplyKnock/Archive.exe', './tmp/Archive.exe')
 shutil.copy('./SimplyKnock/SimplyKnockArchiveBuilder.txt', './tmp/SimplyKnockArchiveBuilder.txt')
 shutil.copy('./SimplyKnock/SimplyKnockArchiveManifest.txt', './tmp/SimplyKnockArchiveManifest.txt')
 os.chdir("./tmp")
-subprocess.call(['./Archive.exe', './CampfireArchiveBuilder.txt'])
+subprocess.call(['./Archive.exe', './SimplyKnockArchiveBuilder.txt'])
 os.chdir("..\\")
 
 # Copy files

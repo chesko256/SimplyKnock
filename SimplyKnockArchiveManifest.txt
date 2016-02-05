@@ -59,6 +59,4 @@ Scripts\Source\_SK_PlayerAliasScript.psc
 Scripts\Source\_SK_SkyUIConfigPanelScript.psc
 Scripts\Source\_SK_TalkingDoor.psc
 SEQ\SimplyKnock.seq
-SKSE\Plugins\simplyknock.dll
-SKSE\Plugins\StorageUtil.dll
 sound\fx\_SK_DoorGlass3Knock.wav
