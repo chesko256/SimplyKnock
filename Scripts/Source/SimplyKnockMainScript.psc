@@ -245,7 +245,7 @@ function KnockOnDoor(ObjectReference akDoor)
 	_SK_DoorKnockSM.Play(akDoor)
 
 	; Wait, then respond
-	Utility.Wait(2.5)
+	Utility.Wait(1.5)
 
 	ObjectReference linked_door = GetLinkedDoor(akDoor)
 	if !linked_door
