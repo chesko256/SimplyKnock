@@ -28,13 +28,15 @@ os.makedirs('./tmp/Data/readmes')
 os.makedirs('./tmp/Data/Interface/simplyknock')
 os.makedirs('./tmp/Data/Interface/Translations')
 os.makedirs('./tmp/Data/Scripts/Source')
+os.makedirs('./tmp/Data/SEQ')
+os.makedirs('./tmp/Data/sound/fx')
 
 # Copy the project files
 print "Copying project files..."
 with open("./Simply Knock/SimplyKnockArchiveManifest.txt") as manifest:
     lines = manifest.readlines()
     for line in lines:
-        shutil.copy(".\\Simply Knock\\" + line.rstrip('\n'), tempdir + line.rstrip('\n'))
+        shutil.copy(".\\SimplyKnock\\" + line.rstrip('\n'), tempdir + line.rstrip('\n'))
 
 # Build the directories
 dirname = "./Simply Knock " + user_input + " Release"
@@ -61,6 +63,7 @@ os.chdir("..\\")
 # Copy files
 shutil.copyfile("./SimplyKnock/SimplyKnock.esp", dirname + "/SimplyKnock.esp")
 shutil.copyfile("./tmp/SimplyKnock.bsa", dirname + "/SimplyKnock.bsa")
+shutil.copyfile("./SimplyKnock/SKSE/Plugins/simplyknock.dll", dirname + "/SKSE/Plugins/simplyknock.dll")
 shutil.copyfile("./SimplyKnock/SKSE/Plugins/StorageUtil.dll", dirname + "/SKSE/Plugins/StorageUtil.dll")
 shutil.copyfile("./SimplyKnock/readmes/SimplyKnock_readme.txt", dirname + "/readmes/SimplyKnock_readme.txt")
 shutil.copyfile("./SimplyKnock/readmes/SimplyKnock_license.txt", dirname + "/readmes/SimplyKnock_license.txt")
