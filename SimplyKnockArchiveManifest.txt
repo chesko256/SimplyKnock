@@ -16,6 +16,7 @@ Scripts\SimplyKnockConditions.pex
 Scripts\SimplyKnockInteriorState.pex
 Scripts\SimplyKnockMainScript.pex
 Scripts\SimplyKnockSKSE.pex
+Scripts\_SK_DoorAliasScript.pex
 Scripts\_SK_PF_Speech1.pex
 Scripts\_SK_PF_Speech2.pex
 Scripts\_SK_PF_SpeechContinue.pex
@@ -40,6 +41,7 @@ Scripts\Source\SimplyKnockConditions.psc
 Scripts\Source\SimplyKnockInteriorState.psc
 Scripts\Source\SimplyKnockMainScript.psc
 Scripts\Source\SimplyKnockSKSE.psc
+Scripts\Source\_SK_DoorAliasScript.psc
 Scripts\Source\_SK_PF_Speech1.psc
 Scripts\Source\_SK_PF_Speech2.psc
 Scripts\Source\_SK_PF_SpeechContinue.psc

@@ -66,3 +66,5 @@ Credits
 * Includes portions of PapyrusUtil 3.2.
 * DoorGlassKnock 166 from FreeSoundEffects.com. [Link to asset](http://www.freesoundeffects.com/track/doorglassknock-166-438782/knock%20door/), [License Agreement](http://www.freesoundeffects.com/licence.php)
 * Vector - Wooden door (Image ID: csp12847818) from www.canstockphoto.com. [Link to asset](http://www.canstockphoto.com/wooden-door-12847818.html), [License Agreement](http://www.canstockphoto.com/license_print.php?id=2)
+
+Thank you for your continued support, endorsements, well-wishes, and donations. I greatly appreciate it. -- Chesko

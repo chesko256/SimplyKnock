@@ -495,18 +495,14 @@ function SetResult_Succeeded()
 
 	; Necessary to run a package.
 	ObjectReference linked_door = GetLinkedDoor(CurrentDoor)
-	Faction entry_faction = linked_door.GetFactionOwner()
 	(state_marker as SimplyKnockInteriorState).DoorAlias.ForceRefTo(linked_door)
 	(state_marker as SimplyKnockInteriorState).OwnerAlias.ForceRefTo(CurrentSpeaker)
 
 	; Necessary to know when we've left the area.
 	(state_marker as SimplyKnockInteriorState).InteriorLocation = linked_door.GetCurrentLocation()	
 	
-	; Necessary to stop "Get Out" dialogue.
-	if entry_faction
-		PlayerRef.AddtoFaction(entry_faction)
-		(state_marker as SimplyKnockInteriorState).EntryFaction = entry_faction
-	endif
+	; Necessary to stop "Get Out" dialogue. We set it back to private when we leave.
+	linked_door.GetParentCell().SetPublic()
 	
 	; Necessary to keep the door unlocked.
 	CurrentDoor.Lock(false, true)

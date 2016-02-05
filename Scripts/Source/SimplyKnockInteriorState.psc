@@ -2,7 +2,6 @@ scriptname SimplyKnockInteriorState extends ObjectReference
 
 Actor property PlayerRef auto
 int property NegotiationState = 0 auto hidden
-Faction property EntryFaction auto hidden
 Location property InteriorLocation auto hidden
 ReferenceAlias property OwnerAlias auto
 ReferenceAlias property DoorAlias auto
@@ -42,12 +41,15 @@ function ClearAllowedEntryAndDelete()
 		owner.EvaluatePackage()
 	endif
 
+	DoorAlias.GetRef().GetParentCell().SetPublic(false)
 	DoorAlias.Clear()
 
+	; DEPRECATED ver. 1.0.1
 	if EntryFaction
 		PlayerRef.RemoveFromFaction(EntryFaction)
 	endif
 	EntryFaction = None
+
 	InteriorLocation = None
 	NegotiationState = 0
 	
@@ -73,3 +75,6 @@ function DebugLog(int aiSeverity, string asLogMessage)
 		endif
 	endif
 endFunction
+
+; DEPRECATED ver. 1.0.1
+Faction property EntryFaction auto hidden
