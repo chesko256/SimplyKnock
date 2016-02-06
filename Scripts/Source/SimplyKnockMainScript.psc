@@ -14,6 +14,7 @@ GlobalVariable property _SK_Setting_SpeechSuccessChance auto
 Keyword property LocTypeHouse auto
 Keyword property LocTypeDwelling auto
 Keyword property LocTypeFarm auto
+Message property _SK_AltMenu auto
 Message property _SK_NoAnswerMsg auto
 Quest property _SimplyKnockDialogueQuest auto
 ReferenceAlias property TalkingDoorAlias auto
@@ -239,7 +240,16 @@ EndEvent
 
 ; Called from alternative menu Perk
 function DoorSelected(ObjectReference akDoor)
-
+	int i = _SK_AltMenu.Show()
+	if i == 0
+		; Knock
+		KnockOnDoor(akDoor)
+	elseif i == 1
+		; Leave
+	elseif i == 2
+		; Unlock Door
+		akDoor.Activate(PlayerRef)
+	endif
 endFunction
 
 ; Called from Perk
