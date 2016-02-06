@@ -237,6 +237,11 @@ Event OnCrosshairRefChange(ObjectReference ref)
 	endif
 EndEvent
 
+; Called from alternative menu Perk
+function DoorSelected(ObjectReference akDoor)
+
+endFunction
+
 ; Called from Perk
 function KnockOnDoor(ObjectReference akDoor)
 	ResetFlags()

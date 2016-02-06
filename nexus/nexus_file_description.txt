@@ -8,6 +8,8 @@ If you need a quiet place to stay the night, or want to visit someone you know a
 
 My goal was to make a [b]very simple, lightweight, no-nonsense mod[/b] that had a place in almost everyone's game, regardless of mod tastes or playstyle.
 
+[center][youtube]1ceAvABaoao[/youtube][/center]
+
 [color=#ffff99][color=#ffff99][u][size=6]Development and Change Log[/size][/u][/color][/color]
 Simply Knock is developed on [b][url=https://github.com/chesko256/SimplyKnock]Github[/url][/b]. The latest changes are documented on Simply Knock's change log on [b][url=https://www.evernote.com/shard/s53/sh/996bc3d6-e15f-48b0-b4c8-d8ea1281a38a/33ee88c997a62a02d65a40799e2818b1]Evernote[/url][/b].
 
@@ -127,6 +129,9 @@ It is very, very likely that it is. See Compatibility section for details.
 
 * [color=#ffff99][b]Has this mod been cleaned with TES5Edit?[/b][/color]    
 Yes.
+
+* [color=#ffff99][b]How is this mod different from "[u]Knock Knock[/u]"?[/b][/color]    
+There are many differences. Primarily: Simply Knock can determine if the owners are home, while Knock Knock does not. See "How It's Different", above.
 
 * [color=#ffff99][b]Does this mod include an MCM translated into my language?[/b][/color]    
 A machine translation of the MCM is included with the mod for your convenience for all languages that SkyUI supports, to ensure that the widest number of non-English users can more-or-less navigate the mod's options. A real translation is most likely desirable; reach out to your favorite translator, or feel free to translate it yourself.

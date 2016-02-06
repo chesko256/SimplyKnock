@@ -136,6 +136,9 @@ It is very, very likely that it is. See Compatibility section for details.
 * **Has this mod been cleaned with TES5Edit?**    
 Yes.
 
+* **How is this mod different from *"Knock Knock"*?**    
+There are many differences. Primarily: Simply Knock can determine if the owners are home, while Knock Knock does not. See "How It's Different", above.
+
 * **Does this mod include an MCM translated into my language?**    
 A machine translation of the MCM is included with the mod for your convenience for all languages that SkyUI supports, to ensure that the widest number of non-English users can more-or-less navigate the mod's options. A real translation is most likely desirable; reach out to your favorite translator, or feel free to translate it yourself.
 
