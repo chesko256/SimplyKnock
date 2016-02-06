@@ -398,5 +398,11 @@ function SaveAllSettings(int aiProfileIndex)
 endFunction
 
 function CleanProfile(int aiProfileIndex)
-	; pass
+	string profile_path = CONFIG_PATH + "profile" + aiProfileIndex
+
+	; Added in 1.0.2
+	int val = LoadSettingFromProfile(aiProfileIndex, "use_alt_menu")
+	if val == -1
+		JsonUtil.SetIntValue(profile_path, "use_alt_menu", 1)
+	endif
 endFunction
