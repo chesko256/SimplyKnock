@@ -88,12 +88,12 @@ If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), 
 
 [color=#ffff99][u][size=6]Compatibility[/size][/u][/color]
 * [color=#ffff99]Confirmed by other users as compatible with the following mods:[/color]
-  * [u]No Psychic Lock Knowledge[/u] - The Knock menu does NOT betray the difficulty of the lock.
+  * [u][url=http://www.nexusmods.com/skyrim/mods/44115]No Psychic Lock Knowledge[/url][/u] - The Knock menu does NOT betray the difficulty of the lock.
   * [u]Mods that add new buildings[/u] (e.g. new lands mods)
-  * [u]Mods that move existing buildings, or modify where the default doors lead to[/u] (e.g. Expanded Towns and Cities)
+  * [u]Mods that move existing buildings, or modify where the default doors lead to[/u] (e.g. [url=http://www.nexusmods.com/skyrim/mods/13608]Expanded Towns and Cities[/url])
 
 * [color=#ffff99]There are reported compatibility issues with the following mods:[/color]
-  * [u]Address Unknown[/u] - The Knock menu betrays the destination of the door.
+  * [u][url=http://www.nexusmods.com/skyrim/mods/57920]Address Unknown[/url][/u] - The Knock menu betrays the destination of the door.
 
 * Includes [u]StorageUtil.dll[/u] and [u]JsonUtil.pex/psc[/u] from PapyrusUtil 3.2. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
 
