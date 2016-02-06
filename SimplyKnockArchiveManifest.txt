@@ -1,5 +1,6 @@
 readmes\SimplyKnock_readme.txt
 readmes\SimplyKnock_license.txt
+readmes\SimplyKnock_changelog.txt
 Interface\simplyknock\logo.dds
 Interface\Translations\SimplyKnock_CZECH.txt
 Interface\Translations\SimplyKnock_ENGLISH.txt

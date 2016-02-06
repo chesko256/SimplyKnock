@@ -24,6 +24,7 @@ ReferenceAlias property DoorAlias auto
 Sound property _SK_DoorKnockSM auto
 Sound property _SK_UnlockSound auto
 Topic property TimeToGo auto hidden
+FormList property VoicesChild auto
 
 VoiceType property MaleEvenTonedAccented auto
 VoiceType property MaleCommonerAccented auto
@@ -446,7 +447,14 @@ Actor[] function GetCellFactionOwnersInCell(Faction akFaction, Cell akCell)
 	int i = 0
 	while i < actor_count
 		Actor possible_owner = akCell.GetNthRef(i, FormType_kNPC) as Actor
-		bool is_child = possible_owner.IsChild()
+		
+		bool is_child 
+		if possible_owner.IsChild() || VoicesChild.HasForm(possible_owner.GetVoiceType())
+			is_child = true
+		else
+			is_child = false
+		endif
+
 		if possible_owner.IsInFaction(akFaction) && !possible_owner.IsDead()
 			; Normal adult owner
 			if !is_child

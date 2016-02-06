@@ -1,0 +1,32 @@
+===================================================
+
+Simply Knock
+
+Change Log
+
+===================================================
+
+Release 1.0.2 (2/6/2016)
+
+Features and Changes
+
+    Added "Use Alternate Door Menu" option to the Config Menu. This will improve compatibility with Address Unknown (menu will no longer show the destination of the door). However, this option will be less compatible with other mods that override door activation to add additional choices to the menu; only "Knock", "Leave", and "Unlock" will display when this is enabled.
+
+    The Knock menu no longer displays when sneaking; you are taken directly to the lock pick screen.
+
+Bug Fixes
+
+    Fixed a case where children could answer the door when an adult was home.
+
+    Fixed a bug where the bribe dialogue option for children was not appearing.
+
+
+Release 1.0.1 (2/5/2016)
+
+Bug Fixes
+
+    Fixed a bug wherein, after being permitted entry into a residence, all of the residence's belongings were flagged as already owned by the player (i.e. nothing could be "stolen", only "taken").
+
+Release 1.0 (2/5/2016)
+
+Initial release.

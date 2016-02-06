@@ -67,6 +67,7 @@ shutil.copyfile("./SimplyKnock/SKSE/Plugins/simplyknock.dll", dirname + "/SKSE/P
 shutil.copyfile("./SimplyKnock/SKSE/Plugins/StorageUtil.dll", dirname + "/SKSE/Plugins/StorageUtil.dll")
 shutil.copyfile("./SimplyKnock/readmes/SimplyKnock_readme.txt", dirname + "/readmes/SimplyKnock_readme.txt")
 shutil.copyfile("./SimplyKnock/readmes/SimplyKnock_license.txt", dirname + "/readmes/SimplyKnock_license.txt")
+shutil.copyfile("./SimplyKnock/readmes/SimplyKnock_changelog.txt", dirname + "/readmes/SimplyKnock_changelog.txt")
 
 # Clean Up
 print "Removing temp files..."
