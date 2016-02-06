@@ -113,9 +113,6 @@ Compatibility
   * Mods that add new buildings (e.g. new lands mods)
   * Mods that move existing buildings, or modify where the default doors lead to (e.g. Expanded Towns and Cities(http://www.nexusmods.com/skyrim/mods/13608))
 
-* There are reported compatibility issues with the following mods:
-  
-
 * Includes StorageUtil.dll and JsonUtil.pex/psc from PapyrusUtil 3.2. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
 
 * Simply Knock attempts to match the voice type of the occupant with a list of known common voice types. This will catch 90%+ of possible cases in the game. If the voice type of the occupant is unique, the system defaults to using MaleEvenToned or FemaleEvenToned and the speaker is named "Indistinct Voice" instead of "Voice". This just means that the person you hear on the other side of the door might not match what they actually sound like in this case.
