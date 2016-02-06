@@ -8,8 +8,8 @@ If you need a quiet place to stay the night, or want to visit someone you know a
 
 My goal was to make a [b]very simple, lightweight, no-nonsense mod[/b] that had a place in almost everyone's game, regardless of mod tastes or playstyle.
 
-[color=#ffff99][color=#ffff99][u][size=6]Change Log[/size][/u][/color][/color]
-The latest changes are documented on Simply Knock's change log on [b][url=https://www.evernote.com/shard/s53/sh/996bc3d6-e15f-48b0-b4c8-d8ea1281a38a/33ee88c997a62a02d65a40799e2818b1]Evernote[/url][/b].
+[color=#ffff99][color=#ffff99][u][size=6]Development and Change Log[/size][/u][/color][/color]
+Simply Knock is developed on [b][url=https://github.com/chesko256/SimplyKnock]Github[/url][/b]. The latest changes are documented on Simply Knock's change log on [b][url=https://www.evernote.com/shard/s53/sh/996bc3d6-e15f-48b0-b4c8-d8ea1281a38a/33ee88c997a62a02d65a40799e2818b1]Evernote[/url][/b].
 
 [color=#ffff99][u][size=6]How To Use[/size][/u][/color]
 
@@ -57,7 +57,7 @@ Simply Knock implements a Mod Config Menu to configure a few minor settings, suc
 
 If allowed inside, the area will remain unlocked and the occupants will be non-hostile to you (will not accuse you of trespassing) for the duration of your stay, or until the next time their "lock up the doors" routine starts (usually the next day). Try not to overstay your welcome.
 
-If the occupant refuses to let you in, they will continue to refuse you for 24 hours (configurable). Continued knocking will do nothing.
+If the occupant refuses to let you in, they will continue to refuse you for 24 hours (configurable). Continued knocking will only cause them to yell at you to go away from the other side of the door.
 
 Simply Knock is smart enough to not display the Knock option inside dungeons with locked doors, or in other hostile areas where this option doesn't make sense. It also doesn't display the option when inside and trying to go outside.
 
@@ -87,13 +87,21 @@ Simply Knock implements a custom SKSE function GetLinkedDoor() that sidesteps th
 If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), feel free to use any of the code found in [url=https://github.com/chesko256/SimplyKnock/tree/master/simplyknock_skse_plugin]simplyknock_skse_plugin[/url] when creating your own SKSE plug-in. It is free for anyone to use.
 
 [color=#ffff99][u][size=6]Compatibility[/size][/u][/color]
+* [color=#ffff99]Confirmed by other users as compatible with the following mods:[/color]
+  * [u]No Psychic Lock Knowledge[/u] - The Knock menu does NOT betray the difficulty of the lock.
+  * [u]Mods that add new buildings[/u] (e.g. new lands mods)
+  * [u]Mods that move existing buildings, or modify where the default doors lead to[/u] (e.g. Expanded Towns and Cities)
+
+* [color=#ffff99]There are reported compatibility issues with the following mods:[/color]
+  * [u]Address Unknown[/u] - The Knock menu betrays the destination of the door.
+
+* Includes [u]StorageUtil.dll[/u] and [u]JsonUtil.pex/psc[/u] from PapyrusUtil 3.2. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
+
 * Simply Knock attempts to match the voice type of the occupant with a list of known common voice types. This will catch 90%+ of possible cases in the game. If the voice type of the occupant is unique, the system defaults to using MaleEvenToned or FemaleEvenToned and the speaker is named "Indistinct Voice" instead of "Voice". This just means that the person you hear on the other side of the door might not match what they actually sound like in this case.
 
 * This mod is designed around knocking on locked doors that lead to another interior cell. This, again, catches 90%+ (if not 100%) of the cases in the vanilla game. If you are using a mod that brings the interiors of buildings into the Tamriel (or other outdoor) worldspace, or a mod that adds new houses / building that have their interiors in the same cell as the exterior, this mod will not function in those instances, and the author has no intention of supporting such a case.
 
-* This mod uses a perk in order to override the activation of doors. If you use another mod that also uses a perk to override door activation, it will be incompatible with Simply Knock.
-
-* Includes StorageUtil.dll and JsonUtil.pex/psc from PapyrusUtil 3.2. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
+* This mod uses a perk in order to override the activation of doors. In general, this is compatible with other mods that also use a perk to override door activation. Please note any incompatibilities you run across.
 
 * Other than those specific cases above, should be compatible with everything.
 

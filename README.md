@@ -44,7 +44,7 @@ How This Mod Came To Be
 -----------------------
 A few nights ago I was happily playing when I decided to visit my good buddy Faendal after dark. I helped him out with his lady problems just the other day, and I figure, we're pals, right? It was then I realized, as I had realized many times in the past, the only way I could talk to him right now was:
 
-1. *Stand outside his door until morning*, like a chump
+1. Stand outside his door until morning, like a chump
 2. Literally *break into his house*
 
 I said "enough is enough" and then set about creating this.
@@ -94,13 +94,21 @@ If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), 
 
 Compatibility
 -------------
+* **Confirmed by other users as compatible with the following mods:**
+  * *No Psychic Lock Knowledge* - The Knock menu does NOT betray the difficulty of the lock.
+  * *Mods that add new buildings* (e.g. new lands mods)
+  * *Mods that move existing buildings, or modify where the default doors lead to* (e.g. Expanded Towns and Cities)
+
+* **There are reported compatibility issues with the following mods:**
+  * *Address Unknown* - The Knock menu betrays the destination of the door.
+
+* Includes *StorageUtil.dll* and *JsonUtil.pex/psc* from PapyrusUtil 3.2. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
+
 * Simply Knock attempts to match the voice type of the occupant with a list of known common voice types. This will catch 90%+ of possible cases in the game. If the voice type of the occupant is unique, the system defaults to using MaleEvenToned or FemaleEvenToned and the speaker is named "Indistinct Voice" instead of "Voice". This just means that the person you hear on the other side of the door might not match what they actually sound like in this case.
 
 * This mod is designed around knocking on locked doors that lead to another interior cell. This, again, catches 90%+ (if not 100%) of the cases in the vanilla game. If you are using a mod that brings the interiors of buildings into the Tamriel (or other outdoor) worldspace, or a mod that adds new houses / building that have their interiors in the same cell as the exterior, this mod will not function in those instances, and the author has no intention of supporting such a case.
 
-* This mod uses a perk in order to override the activation of doors. If you use another mod that also uses a perk to override door activation, it will be incompatible with Simply Knock.
-
-* Includes StorageUtil.dll and JsonUtil.pex/psc from PapyrusUtil 3.2. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
+* This mod uses a perk in order to override the activation of doors. In general, this is compatible with other mods that also use a perk to override door activation. Please note any incompatibilities you run across.
 
 * Other than those specific cases above, should be compatible with everything.
 
