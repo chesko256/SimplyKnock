@@ -81,7 +81,6 @@ Settings
 * Base success chance of requests - The base chance of how often you will succeed in requesting to come inside, unmodified by Speechcraft skill. Speechcraft adds 0.5% chance per point of Speechcraft. Default: 50%.
 * Request failure timeout period - How long before you can try to request entry at a given location again after failure. Default: 24 hours.
 * Friends always allow entry - If enabled, friends will always allow you to enter. Default: Enabled.
-* Use Alternate Door Menu - Use an alternate menu when clicking on doors. This menu will never show the destination of the door (to ensure compatibility with mods like Address Unknown), but may be less compatible with other mods that override door activation than the normal door menu. Default: Disabled
 * Settings Profiles - This mod saves your settings to a profile by default, and are persistent across saves and new games. If you use mods like Campfire or Frostfall 3, you are probably familiar with this feature.
 
 Performance and Design
@@ -107,11 +106,16 @@ If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), 
 
 Compatibility
 -------------
-* Confirmed by other users as compatible with the following mods:
-  * No Psychic Lock Knowledge(http://www.nexusmods.com/skyrim/mods/44115) - The normal door menu does not betray the difficulty of the lock.
-  * Address Unknown(http://www.nexusmods.com/skyrim/mods/57920) - Use the "Use Alternate Door Menu" option in Simply Knock's MCM, or else the door menu betrays the destination of the door.
+* Confirmed as compatible with the following mods:
+  * No Psychic Lock Knowledge(http://www.nexusmods.com/skyrim/mods/44115) - The door menu does not betray the difficulty of the lock.
+  * Address Unknown(http://www.nexusmods.com/skyrim/mods/57920) - The door menu does not betray the destination of the door.
+  * Lockable Locks(http://www.nexusmods.com/skyrim/mods/66917)
   * Mods that add new buildings (e.g. new lands mods)
   * Mods that move existing buildings, or modify where the default doors lead to (e.g. Expanded Towns and Cities(http://www.nexusmods.com/skyrim/mods/13608))
+
+* Needs compatibility patch:
+  * SkyRe(http://www.nexusmods.com/skyrim/mods/9286) - Requires compatibility patch. See Files section.
+  * PerMa(http://www.nexusmods.com/skyrim/mods/59849) - Requires compatibility patch. See Files section.
 
 * Includes StorageUtil.dll and JsonUtil.pex/psc from PapyrusUtil 3.2. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
 
