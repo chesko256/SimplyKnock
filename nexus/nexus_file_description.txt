@@ -93,7 +93,7 @@ If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), 
 [color=#ffff99][u][size=6]Compatibility[/size][/u][/color]
 * [color=#ffff99]Confirmed as compatible with the following mods:[/color]
   * [u][url=http://www.nexusmods.com/skyrim/mods/44115]No Psychic Lock Knowledge[/url][/u] - The normal door menu does not betray the difficulty of the lock.
-  * [u][url=http://www.nexusmods.com/skyrim/mods/57920]Address Unknown[/url][/u] - Use the "Use Alternate Door Menu" option in Simply Knock's MCM, or else the door menu betrays the destination of the door.
+  * [u][url=http://www.nexusmods.com/skyrim/mods/57920]Address Unknown[/url][/u] - The door menu does not betray the destination of the door.
   * [u][url=http://www.nexusmods.com/skyrim/mods/66917]Lockable Locks[/url][/u]
   * [u]Mods that add new buildings[/u] (e.g. new lands mods)
   * [u]Mods that move existing buildings, or modify where the default doors lead to[/u] (e.g. [url=http://www.nexusmods.com/skyrim/mods/13608]Expanded Towns and Cities[/url])
@@ -108,7 +108,7 @@ If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), 
 
 * This mod is designed around knocking on locked doors that lead to another interior cell. This, again, catches 90%+ (if not 100%) of the cases in the vanilla game. If you are using a mod that brings the interiors of buildings into the Tamriel (or other outdoor) worldspace, or a mod that adds new houses / building that have their interiors in the same cell as the exterior, this mod will not function in those instances, and the author has no intention of supporting such a case.
 
-* This mod uses a perk in order to override the activation of doors. In general, this is compatible with other mods that also use a perk to override door activation. Please note any incompatibilities you run across.
+* This mod uses a perk (not one you select, but internally to the mod) in order to override the activation of doors. In general, this is compatible with other mods that also use a perk to override door activation. Please note any incompatibilities you run across.
 
 * Other than those specific cases above, should be compatible with everything.
 

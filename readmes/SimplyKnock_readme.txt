@@ -123,7 +123,7 @@ Compatibility
 
 * This mod is designed around knocking on locked doors that lead to another interior cell. This, again, catches 90%+ (if not 100%) of the cases in the vanilla game. If you are using a mod that brings the interiors of buildings into the Tamriel (or other outdoor) worldspace, or a mod that adds new houses / building that have their interiors in the same cell as the exterior, this mod will not function in those instances, and the author has no intention of supporting such a case.
 
-* This mod uses a perk in order to override the activation of doors. In general, this is compatible with other mods that also use a perk to override door activation. Please note any incompatibilities you run across.
+* This mod uses a perk (not one you select, but internally to the mod) in order to override the activation of doors. In general, this is compatible with other mods that also use a perk to override door activation. Please note any incompatibilities you run across.
 
 * Other than those specific cases above, should be compatible with everything.
 
