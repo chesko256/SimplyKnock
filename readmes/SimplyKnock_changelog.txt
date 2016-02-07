@@ -9,7 +9,7 @@ Release 1.0.3 (2/6/2016)
 
 Features and Changes
 
-    Added support for compatibility patches for SkyRe and PerMa.
+    Added support for compatibility patches for SkyRe, PerMa, and possibly other mods as needed for compatibility patching
 
     Removed the "Alternate Door Menu" option. Recent changes to the main door menu made it unnecessary.
 
