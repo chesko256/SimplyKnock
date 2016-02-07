@@ -7,14 +7,12 @@ string CONFIG_PATH = "../SimplyKnockData/"
 GlobalVariable property _SK_Setting_SpeechSuccessChance auto
 GlobalVariable property _SK_Setting_StateTimeoutDuration auto
 GlobalVariable property _SK_Setting_FriendsAllowEntry auto
-GlobalVariable property _SK_Setting_UseAltMenu auto
 GlobalVariable property _SK_Setting_CurrentProfile auto
 GlobalVariable property _SK_Setting_AutoSaveLoad auto
 
 int Settings_SpeechSuccessChance_OID
 int Settings_StateTimeoutDuration_OID
 int Settings_FriendsAllowEntryToggle_OID
-int Settings_UseAltMenu_OID
 
 int SaveLoad_SelectProfile_OID
 int SaveLoad_RenameProfile_OID
@@ -47,11 +45,6 @@ function PageReset_Settings()
 		Settings_FriendsAllowEntryToggle_OID = AddToggleOption("$SimplyKnockSettingsFriendsAllowEntry", true)
 	else
 		Settings_FriendsAllowEntryToggle_OID = AddToggleOption("$SimplyKnockSettingsFriendsAllowEntry", false)
-	endif
-	if _SK_Setting_UseAltMenu.GetValueInt() == 2
-		Settings_UseAltMenu_OID = AddToggleOption("$SimplyKnockSettingsUseAltMenu", true)
-	else
-		Settings_UseAltMenu_OID = AddToggleOption("$SimplyKnockSettingsUseAltMenu", false)
 	endif
 endFunction
 
@@ -130,8 +123,6 @@ event OnOptionHighlight(int option)
 		SetInfoText("$SimplyKnockSettingsTimeoutDurationHighlight")
 	elseif option == Settings_FriendsAllowEntryToggle_OID
 		SetInfoText("$SimplyKnockSettingsFriendsAllowEntryHighlight")
-	elseif option == Settings_UseAltMenu_OID
-		SetInfoText("$SimplyKnockSettingsUseAltMenuHighlight")
 
 	elseif option == SaveLoad_SelectProfile_OID
 		SetInfoText("$SimplyKnockOptionHighlightSettingSelectProfile")
@@ -154,15 +145,6 @@ event OnOptionSelect(int option)
 			SetToggleOptionValue(Settings_FriendsAllowEntryToggle_OID, true)
 		endif
 		SaveSettingToCurrentProfile("friends_allow_entry", _SK_Setting_FriendsAllowEntry.GetValueInt())
-	elseif option == Settings_UseAltMenu_OID
-		if _SK_Setting_UseAltMenu.GetValueInt() == 2
-			_SK_Setting_UseAltMenu.SetValueInt(1)
-			SetToggleOptionValue(Settings_UseAltMenu_OID, false)
-		else
-			_SK_Setting_UseAltMenu.SetValueInt(2)
-			SetToggleOptionValue(Settings_UseAltMenu_OID, true)
-		endif
-		SaveSettingToCurrentProfile("use_alt_menu", _SK_Setting_UseAltMenu.GetValueInt())
 	elseif option == SaveLoad_Enable_OID
 		if _SK_Setting_AutoSaveLoad.GetValueInt() == 2
 			_SK_Setting_AutoSaveLoad.SetValueInt(1)
@@ -207,11 +189,6 @@ event OnOptionDefault(int option)
 		SetToggleOptionValue(Settings_FriendsAllowEntryToggle_OID, true)
 		ForcePageReset()
 		SaveSettingToCurrentProfile("friends_allow_entry", _SK_Setting_FriendsAllowEntry.GetValueInt())
-	elseif option == Settings_UseAltMenu_OID
-		_SK_Setting_UseAltMenu.SetValueInt(1)
-		SetToggleOptionValue(Settings_UseAltMenu_OID, false)
-		ForcePageReset()
-		SaveSettingToCurrentProfile("use_alt_menu", _SK_Setting_UseAltMenu.GetValueInt())
 	endif
 endEvent
 
@@ -372,10 +349,6 @@ function SwitchToProfile(int aiProfileIndex)
 	if val != -1
 		_SK_Setting_FriendsAllowEntry.SetValueInt(val)
 	endif
-	val = LoadSettingFromProfile(aiProfileIndex, "use_alt_menu")
-	if val != -1
-		_SK_Setting_UseAltMenu.SetValueInt(val)
-	endif
 endFunction
 
 function GenerateDefaultProfile(int aiProfileIndex)
@@ -384,7 +357,6 @@ function GenerateDefaultProfile(int aiProfileIndex)
 	JsonUtil.SetFloatValue(profile_path, "speech_success_chance", 0.5)
 	JsonUtil.SetFloatValue(profile_path, "state_timeout_duration", 24.0)
 	JsonUtil.SetIntValue(profile_path, "friends_allow_entry", 2)
-	JsonUtil.SetIntValue(profile_path, "use_alt_menu", 1)
 	JsonUtil.Save(profile_path)
 endFunction
 
@@ -393,16 +365,14 @@ function SaveAllSettings(int aiProfileIndex)
 	JsonUtil.SetFloatValue(profile_path, "speech_success_chance", _SK_Setting_SpeechSuccessChance.GetValue())
 	JsonUtil.SetFloatValue(profile_path, "state_timeout_duration", _SK_Setting_StateTimeoutDuration.GetValue())
 	JsonUtil.SetIntValue(profile_path, "friends_allow_entry", _SK_Setting_FriendsAllowEntry.GetValueInt())
-	JsonUtil.SetIntValue(profile_path, "use_alt_menu", _SK_Setting_UseAltMenu.GetValueInt())
 	JsonUtil.Save(profile_path)
 endFunction
 
 function CleanProfile(int aiProfileIndex)
 	string profile_path = CONFIG_PATH + "profile" + aiProfileIndex
 
-	; Added in 1.0.2
-	int val = LoadSettingFromProfile(aiProfileIndex, "use_alt_menu")
-	if val == -1
-		JsonUtil.SetIntValue(profile_path, "use_alt_menu", 1)
-	endif
+	; Removed in 1.0.3
+	bool result
+	result = JsonUtil.UnsetIntValue(profile_path, "use_alt_menu")
+	JsonUtil.Save(profile_path)
 endFunction

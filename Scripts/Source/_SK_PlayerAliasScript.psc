@@ -2,7 +2,6 @@ scriptname _SK_PlayerAliasScript extends ReferenceAlias
 
 Actor property PlayerRef auto
 Perk property _SK_KnockPerk auto
-Perk property _SK_AltKnockPerk auto
 int property SKSE_MIN_VERSION = 10703 autoReadOnly
 Message property _SK_SKSE_Error auto
 _SK_SkyUIConfigPanelScript property Config auto
@@ -30,9 +29,6 @@ EndEvent
 function AddPerksIfNecessary()
 	if !PlayerRef.HasPerk(_SK_KnockPerk)
 		PlayerRef.AddPerk(_SK_KnockPerk)
-	endif
-	if !PlayerRef.HasPerk(_SK_AltKnockPerk)
-		PlayerRef.AddPerk(_SK_AltKnockPerk)
 	endif
 endFunction
 

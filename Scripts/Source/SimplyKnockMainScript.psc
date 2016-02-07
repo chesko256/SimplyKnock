@@ -11,6 +11,7 @@ Actor property PlayerRef auto
 Activator property _SK_InteriorStateMarker auto
 GlobalVariable property _SK_Setting_LogLevel auto
 GlobalVariable property _SK_Setting_SpeechSuccessChance auto
+GlobalVariable property _SK_DelegateActivation auto
 Keyword property LocTypeHouse auto
 Keyword property LocTypeDwelling auto
 Keyword property LocTypeFarm auto
@@ -239,18 +240,16 @@ Event OnCrosshairRefChange(ObjectReference ref)
 	endif
 EndEvent
 
-; Called from alternative menu Perk
-function DoorSelected(ObjectReference akDoor)
-	int i = _SK_AltMenu.Show()
-	if i == 0
-		; Knock
-		KnockOnDoor(akDoor)
-	elseif i == 1
-		; Leave
-	elseif i == 2
-		; Unlock Door
-		akDoor.Activate(PlayerRef)
-	endif
+; Called from replace default Unlock perk option
+function DelegateActivation(ObjectReference akDoor)
+	DebugLog(0, "Delegating activation.")
+	_SK_DelegateActivation.SetValueInt(2)
+	; Wait to exit menu mode.
+	Utility.Wait(0.1)
+	Input.TapKey(Input.GetMappedKey("Activate"))
+	Utility.Wait(0.3)
+	_SK_DelegateActivation.SetValueInt(1)
+	DebugLog(0, "Delegation complete.")
 endFunction
 
 ; Called from Perk
