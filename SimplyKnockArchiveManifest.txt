@@ -13,7 +13,6 @@ Interface\Translations\SimplyKnock_RUSSIAN.txt
 Interface\Translations\SimplyKnock_SPANISH.txt
 Scripts\JsonUtil.pex
 Scripts\PRKF__SK_KnockPerk_02001828.pex
-Scripts\PRKF__SK_AltKnockPerk_0200AF4A.pex
 Scripts\SimplyKnockConditions.pex
 Scripts\SimplyKnockInteriorState.pex
 Scripts\SimplyKnockMainScript.pex
@@ -39,7 +38,6 @@ Scripts\_SK_SkyUIConfigPanelScript.pex
 Scripts\_SK_TalkingDoor.pex
 Scripts\Source\JsonUtil.psc
 Scripts\Source\PRKF__SK_KnockPerk_02001828.psc
-Scripts\Source\PRKF__SK_AltKnockPerk_0200AF4A.psc
 Scripts\Source\SimplyKnockConditions.psc
 Scripts\Source\SimplyKnockInteriorState.psc
 Scripts\Source\SimplyKnockMainScript.psc
