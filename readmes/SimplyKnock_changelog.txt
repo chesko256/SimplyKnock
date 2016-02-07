@@ -5,6 +5,13 @@ Simply Knock
 Change Log
 
 ===================================================
+Release 1.0.3 (2/6/2016)
+
+Features and Changes
+
+    Added support for compatibility patches for SkyRe and PerMa.
+
+    Removed the "Alternate Door Menu" option. Recent changes to the main door menu made it unnecessary.
 
 Release 1.0.2 (2/6/2016)
 
