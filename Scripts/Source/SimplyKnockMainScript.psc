@@ -269,6 +269,9 @@ function KnockOnDoor(ObjectReference akDoor)
 	endif
 	
 	ActorBase actor_owner = linked_door.GetActorOwner()
+	if !actor_owner
+		actor_owner = linked_door.GetParentCell().GetActorOwner()
+	endif
 	Actor found_actor = None
 	if actor_owner
 		found_actor = KnockOnDoor_ActorOwner(linked_door, actor_owner)
@@ -363,11 +366,6 @@ endFunction
 Actor function KnockOnDoor_FactionOwner(ObjectReference linked_door)
 	Cell linked_cell = linked_door.GetParentCell()
 	Faction faction_owner = linked_door.GetFactionOwner()
-
-	if !faction_owner
-		DebugLog(1, "This door has no ownership!")
-		return None
-	endif
 	
 	Actor[] present_owners = GetCellFactionOwnersInCell(faction_owner, linked_cell)
 	if !present_owners
@@ -454,6 +452,7 @@ Actor[] function GetCellFactionOwnersInCell(Faction akFaction, Cell akCell)
 			is_child = false
 		endif
 
+		; The actor must be a member of the owner faction, or there must be no owner faction.
 		if possible_owner.IsInFaction(akFaction) && possible_owner.IsEnabled() && !possible_owner.IsDead()
 			; Normal adult owner
 			if !is_child
@@ -461,16 +460,14 @@ Actor[] function GetCellFactionOwnersInCell(Faction akFaction, Cell akCell)
 				if idx < 16
 					found_actors[idx] = possible_owner
 				endif
-			endif
-
+			endif	
 			; Is this a friend?
 			if IsFriendsWithPlayer(possible_owner)
 				int jdx = ArrayCount(found_friends)
 				if jdx < 16
 					found_friends[jdx] = possible_owner
 				endif
-			endif
-
+			endif	
 			; Is this a child?
 			if is_child
 				int kdx = ArrayCount(found_children)
