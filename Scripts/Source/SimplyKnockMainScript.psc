@@ -419,7 +419,7 @@ Actor function GetActorOwnerInCell(ActorBase akActorBase, Cell akCell)
 	int i = 0
 	while i < actor_count
 		Actor actor_ref = akCell.GetNthRef(i, FormType_kNPC) as Actor
-		if actor_ref.GetActorBase() == akActorBase
+		if actor_ref.GetActorBase() == akActorBase && actor_ref.IsEnabled() && !actor_ref.IsDead()
 			return actor_ref
 		endif
 		i += 1
@@ -454,7 +454,7 @@ Actor[] function GetCellFactionOwnersInCell(Faction akFaction, Cell akCell)
 			is_child = false
 		endif
 
-		if possible_owner.IsInFaction(akFaction) && !possible_owner.IsDead()
+		if possible_owner.IsInFaction(akFaction) && possible_owner.IsEnabled() && !possible_owner.IsDead()
 			; Normal adult owner
 			if !is_child
 				int idx = ArrayCount(found_actors)

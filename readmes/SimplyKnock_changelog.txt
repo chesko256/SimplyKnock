@@ -5,6 +5,15 @@ Simply Knock
 Change Log
 
 ===================================================
+Release 1.0.4 (2/7/2016)
+
+Bug Fixes
+
+    The mod now correctly checks whether or not an actor found in the linked cell is disabled or not. This prevents actors that are disabled until a certain event has occurred (i.e. Calder the House Carl in Hjerim) from answering the door incorrectly.
+
+    If a cell is owned by a single actor instead of a faction (rare), the mod now correctly checks that the actor owner is alive and enabled.
+
+
 Release 1.0.3 (2/6/2016)
 
 Features and Changes

@@ -96,6 +96,7 @@ If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), 
   * [u][url=http://www.nexusmods.com/skyrim/mods/57920]Address Unknown[/url][/u] - The door menu does not betray the destination of the door.
   * [u][url=http://www.nexusmods.com/skyrim/mods/66917]Lockable Locks[/url][/u]
   * [u][url=http://www.nexusmods.com/skyrim/mods/68425]Ordinator[/url][/u]
+  * [u][url=http://www.nexusmods.com/skyrim/mods/19281]Requiem[/url][/u]
   * [u]Mods that add new buildings[/u] (e.g. new lands mods)
   * [u]Mods that move existing buildings, or modify where the default doors lead to[/u] (e.g. [url=http://www.nexusmods.com/skyrim/mods/13608]Expanded Towns and Cities[/url])
 

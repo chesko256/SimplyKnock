@@ -111,6 +111,7 @@ Compatibility
   * Address Unknown(http://www.nexusmods.com/skyrim/mods/57920) - The door menu does not betray the destination of the door.
   * Lockable Locks(http://www.nexusmods.com/skyrim/mods/66917)
   * Ordinator(http://www.nexusmods.com/skyrim/mods/68425)
+  * Requiem(http://www.nexusmods.com/skyrim/mods/19281)
   * Mods that add new buildings (e.g. new lands mods)
   * Mods that move existing buildings, or modify where the default doors lead to (e.g. Expanded Towns and Cities(http://www.nexusmods.com/skyrim/mods/13608))
 
