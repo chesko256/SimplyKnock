@@ -102,8 +102,8 @@ Compatibility
   * *[Address Unknown](http://www.nexusmods.com/skyrim/mods/57920)* - Use the "Use Alternate Door Menu" option in Simply Knock's MCM, or else the door menu betrays the destination of the door.
   * *[Lockable Locks](http://www.nexusmods.com/skyrim/mods/66917)*
   * *[Lock Overhaul](http://www.nexusmods.com/skyrim/mods/29979)*
-  * *[Ordinator](http://www.nexusmods.com/skyrim/mods/68425)
-  * *[Requiem](http://www.nexusmods.com/skyrim/mods/19281)
+  * *[Ordinator](http://www.nexusmods.com/skyrim/mods/68425)*
+  * *[Requiem](http://www.nexusmods.com/skyrim/mods/19281)*
   * *Mods that add new buildings* (e.g. new lands mods)
   * *Mods that move existing buildings, or modify where the default doors lead to* (e.g. [Expanded Towns and Cities](http://www.nexusmods.com/skyrim/mods/13608))
 
