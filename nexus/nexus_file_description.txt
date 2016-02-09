@@ -1,5 +1,8 @@
 [center][img]http://i.imgur.com/8fLLRSK.png[/img][/center]
 
+[center][color=#999999]Select Language:[/color][/center]
+[center][url=http://www.nexusmods.com/skyrim/mods/73331]German[/url], [url=http://www.nexusmods.com/skyrim/mods/73332]Spanish[/url], [url=http://skyrim.2game.info/detail.php?id=73236]Japanese[/url][/center]
+
 [b]Simply Knock[/b] is the first feature-complete mod that allows you to [b]knock on locked doors of houses in Skyrim[/b]. If anyone is home, they will answer the door! You can then flex your speechcraft skills in order to get them to allow you inside. If someone inside is a friend, they will always permit you to enter.
 
 All house doors in Skyrim can be knocked on if locked, as well as some businesses where people live (farms, stores, etc).
@@ -93,9 +96,10 @@ If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), 
 
 [color=#ffff99][u][size=6]Compatibility[/size][/u][/color]
 * [color=#ffff99]Confirmed as compatible with the following mods:[/color]
-  * [u][url=http://www.nexusmods.com/skyrim/mods/44115]No Psychic Lock Knowledge[/url][/u] - The normal door menu does not betray the difficulty of the lock.
+  * [u][url=http://www.nexusmods.com/skyrim/mods/44115]No Psychic Lock Knowledge[/url][/u] - The door menu does not betray the difficulty of the lock.
   * [u][url=http://www.nexusmods.com/skyrim/mods/57920]Address Unknown[/url][/u] - The door menu does not betray the destination of the door.
   * [u][url=http://www.nexusmods.com/skyrim/mods/66917]Lockable Locks[/url][/u]
+  * [u][url=http://www.nexusmods.com/skyrim/mods/29979]Lock Overhaul[/url][/u]
   * [u][url=http://www.nexusmods.com/skyrim/mods/68425]Ordinator[/url][/u]
   * [u][url=http://www.nexusmods.com/skyrim/mods/19281]Requiem[/url][/u]
   * [u]Mods that add new buildings[/u] (e.g. new lands mods)
