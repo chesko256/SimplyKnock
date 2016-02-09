@@ -5,6 +5,18 @@ Simply Knock
 Change Log
 
 ===================================================
+Release 1.0.5 (2/8/2016)
+
+Features and Changes
+    "Welcome Duration" (how long you can stay once permitted entry) and "Failure Timeout" (how long it takes before you can request entry again after failing) are now separate options.
+
+Bug Fixes
+
+    Dogs can no longer answer the door.
+
+    Better handling of cases (like Chillfurrow Farm) where the door has no owner, but the cell is owned by a single actor.
+
+
 Release 1.0.4 (2/7/2016)
 
 Bug Fixes

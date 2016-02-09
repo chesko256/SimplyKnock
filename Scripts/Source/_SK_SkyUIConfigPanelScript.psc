@@ -5,13 +5,15 @@ Scriptname _SK_SkyUIConfigPanelScript extends SKI_ConfigBase
 string CONFIG_PATH = "../SimplyKnockData/"
 
 GlobalVariable property _SK_Setting_SpeechSuccessChance auto
-GlobalVariable property _SK_Setting_StateTimeoutDuration auto
+GlobalVariable property _SK_Setting_SuccessTimeoutDuration auto
+GlobalVariable property _SK_Setting_FailureTimeoutDuration auto
 GlobalVariable property _SK_Setting_FriendsAllowEntry auto
 GlobalVariable property _SK_Setting_CurrentProfile auto
 GlobalVariable property _SK_Setting_AutoSaveLoad auto
 
 int Settings_SpeechSuccessChance_OID
-int Settings_StateTimeoutDuration_OID
+int Settings_SuccessTimeoutDuration_OID
+int Settings_FailureTimeoutDuration_OID
 int Settings_FriendsAllowEntryToggle_OID
 
 int SaveLoad_SelectProfile_OID
@@ -39,7 +41,8 @@ function PageReset_Settings()
 
 	AddHeaderOption("$SimplyKnockHeaderSettings")
 	Settings_SpeechSuccessChance_OID = AddSliderOption("$SimplyKnockSettingsSuccessChance", _SK_Setting_SpeechSuccessChance.GetValue() * 100.0, "{0}%")
-	Settings_StateTimeoutDuration_OID = AddSliderOption("$SimplyKnockSettingsTimeoutDuration", _SK_Setting_StateTimeoutDuration.GetValueInt(), "{0} Hours")
+	Settings_SuccessTimeoutDuration_OID = AddSliderOption("$SimplyKnockSettingsSuccessTimeoutDuration", _SK_Setting_SuccessTimeoutDuration.GetValueInt(), "{0} Hours")
+	Settings_FailureTimeoutDuration_OID = AddSliderOption("$SimplyKnockSettingsFailureTimeoutDuration", _SK_Setting_FailureTimeoutDuration.GetValueInt(), "{0} Hours")
 
 	if _SK_Setting_FriendsAllowEntry.GetValueInt() == 2
 		Settings_FriendsAllowEntryToggle_OID = AddToggleOption("$SimplyKnockSettingsFriendsAllowEntry", true)
@@ -119,8 +122,10 @@ endEvent
 event OnOptionHighlight(int option)
 	if option == Settings_SpeechSuccessChance_OID
 		SetInfoText("$SimplyKnockSettingsSuccessChanceHighlight")
-	elseif option == Settings_StateTimeoutDuration_OID
-		SetInfoText("$SimplyKnockSettingsTimeoutDurationHighlight")
+	elseif option == Settings_SuccessTimeoutDuration_OID
+		SetInfoText("$SimplyKnockSettingsTimeoutSuccessDurationHighlight")
+	elseif option == Settings_FailureTimeoutDuration_OID
+		SetInfoText("$SimplyKnockSettingsTimeoutFailureDurationHighlight")
 	elseif option == Settings_FriendsAllowEntryToggle_OID
 		SetInfoText("$SimplyKnockSettingsFriendsAllowEntryHighlight")
 
@@ -179,11 +184,16 @@ event OnOptionDefault(int option)
 		SetSliderOptionValue(Settings_SpeechSuccessChance_OID, 50.0, "{0}%")
 		ForcePageReset()
 		SaveSettingToCurrentProfileFloat("speech_success_chance", _SK_Setting_SpeechSuccessChance.GetValue())
-	elseif option == Settings_StateTimeoutDuration_OID
-		_SK_Setting_StateTimeoutDuration.SetValue(24.0)
-		SetSliderOptionValue(Settings_StateTimeoutDuration_OID, 24.0, "{0} Hours")
+	elseif option == Settings_SuccessTimeoutDuration_OID
+		_SK_Setting_SuccessTimeoutDuration.SetValue(24.0)
+		SetSliderOptionValue(Settings_SuccessTimeoutDuration_OID, 12.0, "{0} Hours")
 		ForcePageReset()
-		SaveSettingToCurrentProfileFloat("state_timeout_duration", _SK_Setting_StateTimeoutDuration.GetValue())
+		SaveSettingToCurrentProfileFloat("success_timeout_duration", _SK_Setting_SuccessTimeoutDuration.GetValue())
+	elseif option == Settings_FailureTimeoutDuration_OID
+		_SK_Setting_FailureTimeoutDuration.SetValue(24.0)
+		SetSliderOptionValue(Settings_FailureTimeoutDuration_OID, 24.0, "{0} Hours")
+		ForcePageReset()
+		SaveSettingToCurrentProfileFloat("failure_timeout_duration", _SK_Setting_FailureTimeoutDuration.GetValue())
 	elseif option == Settings_FriendsAllowEntryToggle_OID
 		_SK_Setting_FriendsAllowEntry.SetValueInt(2)
 		SetToggleOptionValue(Settings_FriendsAllowEntryToggle_OID, true)
@@ -223,8 +233,13 @@ event OnOptionSliderOpen(int option)
 		SetSliderDialogDefaultValue(50.0)
 		SetSliderDialogRange(0.0, 100.0)
 		SetSliderDialogInterval(1.0)
-	elseif option == Settings_StateTimeoutDuration_OID
-		SetSliderDialogStartValue(_SK_Setting_StateTimeoutDuration.GetValue())
+	elseif option == Settings_SuccessTimeoutDuration_OID
+		SetSliderDialogStartValue(_SK_Setting_SuccessTimeoutDuration.GetValue())
+		SetSliderDialogDefaultValue(12.0)
+		SetSliderDialogRange(1.0, 24.0)
+		SetSliderDialogInterval(1.0)
+	elseif option == Settings_FailureTimeoutDuration_OID
+		SetSliderDialogStartValue(_SK_Setting_FailureTimeoutDuration.GetValue())
 		SetSliderDialogDefaultValue(24.0)
 		SetSliderDialogRange(1.0, 24.0)
 		SetSliderDialogInterval(1.0)
@@ -236,10 +251,14 @@ event OnOptionSliderAccept(int option, float value)
 		_SK_Setting_SpeechSuccessChance.SetValue(value / 100.0)
 		SetSliderOptionValue(Settings_SpeechSuccessChance_OID, value, "{0}%")
 		SaveSettingToCurrentProfileFloat("speech_success_chance", _SK_Setting_SpeechSuccessChance.GetValue())
-	elseif option == Settings_StateTimeoutDuration_OID
-		_SK_Setting_StateTimeoutDuration.SetValue(value)
-		SetSliderOptionValue(Settings_StateTimeoutDuration_OID, value, "{0} Hours")
-		SaveSettingToCurrentProfileFloat("state_timeout_duration", _SK_Setting_StateTimeoutDuration.GetValue())
+	elseif option == Settings_SuccessTimeoutDuration_OID
+		_SK_Setting_SuccessTimeoutDuration.SetValue(value)
+		SetSliderOptionValue(Settings_SuccessTimeoutDuration_OID, value, "{0} Hours")
+		SaveSettingToCurrentProfileFloat("success_timeout_duration", _SK_Setting_SuccessTimeoutDuration.GetValue())
+	elseif option == Settings_FailureTimeoutDuration_OID
+		_SK_Setting_FailureTimeoutDuration.SetValue(value)
+		SetSliderOptionValue(Settings_FailureTimeoutDuration_OID, value, "{0} Hours")
+		SaveSettingToCurrentProfileFloat("failure_timeout_duration", _SK_Setting_FailureTimeoutDuration.GetValue())
 	endif
 endEvent
 
@@ -341,9 +360,13 @@ function SwitchToProfile(int aiProfileIndex)
 	if val != -1
 		_SK_Setting_SpeechSuccessChance.SetValue(val)
 	endif
-	val = LoadSettingFromProfile(aiProfileIndex, "state_timeout_duration")
+	val = LoadSettingFromProfile(aiProfileIndex, "success_timeout_duration")
 	if val != -1
-		_SK_Setting_StateTimeoutDuration.SetValueInt(val)
+		_SK_Setting_SuccessTimeoutDuration.SetValueInt(val)
+	endif
+	val = LoadSettingFromProfile(aiProfileIndex, "failure_timeout_duration")
+	if val != -1
+		_SK_Setting_FailureTimeoutDuration.SetValueInt(val)
 	endif
 	val = LoadSettingFromProfile(aiProfileIndex, "friends_allow_entry")
 	if val != -1
@@ -355,7 +378,8 @@ function GenerateDefaultProfile(int aiProfileIndex)
 	string profile_path = CONFIG_PATH + "profile" + aiProfileIndex
 	JsonUtil.SetStringValue(profile_path, "profile_name", "Profile " + aiProfileIndex)
 	JsonUtil.SetFloatValue(profile_path, "speech_success_chance", 0.5)
-	JsonUtil.SetFloatValue(profile_path, "state_timeout_duration", 24.0)
+	JsonUtil.SetFloatValue(profile_path, "success_timeout_duration", 12.0)
+	JsonUtil.SetFloatValue(profile_path, "failure_timeout_duration", 24.0)
 	JsonUtil.SetIntValue(profile_path, "friends_allow_entry", 2)
 	JsonUtil.Save(profile_path)
 endFunction
@@ -363,7 +387,8 @@ endFunction
 function SaveAllSettings(int aiProfileIndex)
 	string profile_path = CONFIG_PATH + "profile" + aiProfileIndex
 	JsonUtil.SetFloatValue(profile_path, "speech_success_chance", _SK_Setting_SpeechSuccessChance.GetValue())
-	JsonUtil.SetFloatValue(profile_path, "state_timeout_duration", _SK_Setting_StateTimeoutDuration.GetValue())
+	JsonUtil.SetFloatValue(profile_path, "success_timeout_duration", _SK_Setting_SuccessTimeoutDuration.GetValue())
+	JsonUtil.SetFloatValue(profile_path, "failure_timeout_duration", _SK_Setting_FailureTimeoutDuration.GetValue())
 	JsonUtil.SetIntValue(profile_path, "friends_allow_entry", _SK_Setting_FriendsAllowEntry.GetValueInt())
 	JsonUtil.Save(profile_path)
 endFunction
@@ -374,5 +399,7 @@ function CleanProfile(int aiProfileIndex)
 	; Removed in 1.0.3
 	bool result
 	result = JsonUtil.UnsetIntValue(profile_path, "use_alt_menu")
+	; Removed in 1.0.5
+	result = JsonUtil.UnsetIntValue(profile_path, "state_timeout_duration")
 	JsonUtil.Save(profile_path)
 endFunction

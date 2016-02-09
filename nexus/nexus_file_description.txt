@@ -67,7 +67,8 @@ If you are sneaking, the lock pick screen will always be displayed instead.
 
 [color=#ffff99][u][size=6]Settings[/size][/u][/color]
 * [b]Base success chance of requests[/b] - The base chance of how often you will succeed in requesting to come inside, unmodified by Speechcraft skill. Speechcraft adds 0.5% chance per point of Speechcraft. Default: 50%.
-* [b]Request failure timeout period[/b] - How long before you can try to request entry at a given location again after failure. Default: 24 hours.
+* [b]Welcome duration[/b] - How long you can stay in a cell once invited (until you leave). Default: 12 hours.
+* [b]Failure timeout[/b] - How long before you can try to request entry at a given location again after failure. Default: 24 hours.
 * [b]Friends always allow entry[/b] - If enabled, friends will always allow you to enter. Default: Enabled.
 * [b]Settings Profiles[/b] - This mod saves your settings to a profile by default, and are persistent across saves and new games. If you use mods like Campfire or Frostfall 3, you are probably familiar with this feature.
 
@@ -121,6 +122,12 @@ If you observe unwanted behavior, I need the following information. [b]Failure t
   * Who answered the door (if known)
   * The time of day in-game
   * What specific dialogue options you chose
+
+* [color=#ffff99][b]I left a house, and the door didn't re-lock behind me.[/b][/color]    
+There can be several causes of this. One, if the owners of that cell are scheduled to be home and have the doors unlocked at the time you left. Two, sometimes the owner's AI packages don't re-run immediately. Finally, not every cell (such as Chillfurrow Farm) has an owner lock list, and once it's been unlocked, it will stay that way forever.
+
+* [color=#ffff99][b]Some files appeared in my Mod Organizer Overwrite directory. What are they, and do I need them?[/b][/color]    
+These are your Settings Profile files. They should be named "common.json" and "profile*.json" under SKSE/SimplyKnockData. If you delete them, you will lose your configuration settings. You can elect to move these into a "new mod" in Mod Organizer and the settings will begin saving there instead. Or, you can leave them in your Overwrite directory and should not encounter a problem if you do.
 
 * [color=#ffff99][b]Does this mod use scripts?[/b][/color]    
 Yes.

@@ -11,10 +11,12 @@ Actor property PlayerRef auto
 Activator property _SK_InteriorStateMarker auto
 GlobalVariable property _SK_Setting_LogLevel auto
 GlobalVariable property _SK_Setting_SpeechSuccessChance auto
+GlobalVariable property _SK_Setting_LastResultValue auto
 GlobalVariable property _SK_DelegateActivation auto
 Keyword property LocTypeHouse auto
 Keyword property LocTypeDwelling auto
 Keyword property LocTypeFarm auto
+Keyword property ActorTypeNPC auto
 Message property _SK_AltMenu auto
 Message property _SK_NoAnswerMsg auto
 Quest property _SimplyKnockDialogueQuest auto
@@ -452,8 +454,8 @@ Actor[] function GetCellFactionOwnersInCell(Faction akFaction, Cell akCell)
 			is_child = false
 		endif
 
-		; The actor must be a member of the owner faction, or there must be no owner faction.
-		if possible_owner.IsInFaction(akFaction) && possible_owner.IsEnabled() && !possible_owner.IsDead()
+		; The actor must be a member of the owner faction, enabled, alive, and a human.
+		if possible_owner.IsInFaction(akFaction) && possible_owner.IsEnabled() && !possible_owner.IsDead() && possible_owner.HasKeyword(ActorTypeNPC)
 			; Normal adult owner
 			if !is_child
 				int idx = ArrayCount(found_actors)
@@ -506,9 +508,12 @@ endFunction
 
 function SetResult_Succeeded()
 	DebugLog(1, "Success!")
+	_SK_Setting_LastResultValue.SetValueInt(2)
 	ObjectReference state_marker = GetStateMarker(CurrentDoor)
 	if !state_marker
 		state_marker = GenerateStateMarker(CurrentDoor)
+	else
+		(state_marker as SimplyKnockInteriorState).SetTimeout()
 	endif
 	(state_marker as SimplyKnockInteriorState).NegotiationState = nsSuccess
 
@@ -533,18 +538,24 @@ endFunction
 
 function SetResult_FailedInitial()
 	DebugLog(1, "Initially failed!")
+	_SK_Setting_LastResultValue.SetValueInt(1)
 	ObjectReference state_marker = GetStateMarker(CurrentDoor)
 	if !state_marker
 		state_marker = GenerateStateMarker(CurrentDoor)
+	else
+		(state_marker as SimplyKnockInteriorState).SetTimeout()
 	endif
 	(state_marker as SimplyKnockInteriorState).NegotiationState = nsInitialFailure
 endFunction
 
 function SetResult_Failed()
 	DebugLog(1, "Failed!")
+	_SK_Setting_LastResultValue.SetValueInt(1)
 	ObjectReference state_marker = GetStateMarker(CurrentDoor)
 	if !state_marker
 		state_marker = GenerateStateMarker(CurrentDoor)
+	else
+		(state_marker as SimplyKnockInteriorState).SetTimeout()
 	endif
 	(state_marker as SimplyKnockInteriorState).NegotiationState = nsFailure
 endFunction

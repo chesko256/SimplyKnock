@@ -5,8 +5,11 @@ int property NegotiationState = 0 auto hidden
 Location property InteriorLocation auto hidden
 ReferenceAlias property OwnerAlias auto
 ReferenceAlias property DoorAlias auto
-GlobalVariable property _SK_Setting_StateTimeoutDuration auto
+GlobalVariable property _SK_Setting_LastResultValue auto 	; 1 = Failed, 2 = Succeeded
+GlobalVariable property _SK_Setting_SuccessTimeoutDuration auto
+GlobalVariable property _SK_Setting_FailureTimeoutDuration auto
 GlobalVariable property _SK_Setting_LogLevel auto
+
 
 ; NegotiationState enum
 ; nsReady 			= 0
@@ -15,9 +18,8 @@ GlobalVariable property _SK_Setting_LogLevel auto
 ; nsFailure 		= 3
 
 Event OnInit()
-	DebugLog(0, "New Interior State marker registering for deletion in " + _SK_Setting_StateTimeoutDuration.GetValueInt() + " hours.")
 	RegisterForModEvent("SimplyKnockPlayerLocationChange", "PlayerLocationChange")
-	RegisterForSingleUpdateGameTime(_SK_Setting_StateTimeoutDuration.GetValue())
+	SetTimeout()
 EndEvent
 
 Event OnUpdateGameTime()
@@ -33,6 +35,18 @@ Event PlayerLocationChange(Form akOldLocation)
 	endif
 endEvent
 
+function SetTimeout()
+	int result_value = _SK_Setting_LastResultValue.GetValueInt()
+	float timeout_duration
+	if result_value == 1
+		timeout_duration = _SK_Setting_FailureTimeoutDuration.GetValue()
+	elseif result_value == 2
+		timeout_duration = _SK_Setting_SuccessTimeoutDuration.GetValue()
+	endif
+	RegisterForSingleUpdateGameTime(timeout_duration)
+	DebugLog(0, "New Interior State marker registering for deletion in " + timeout_duration + " hours.")
+endFunction
+
 function ClearAllowedEntryAndDelete()
 	Actor owner = OwnerAlias.GetActorRef()
 	if owner
@@ -41,8 +55,10 @@ function ClearAllowedEntryAndDelete()
 		owner.EvaluatePackage()
 	endif
 
-	DoorAlias.GetRef().GetParentCell().SetPublic(false)
-	DoorAlias.Clear()
+	if DoorAlias.GetRef()
+		DoorAlias.GetRef().GetParentCell().SetPublic(false)
+		DoorAlias.Clear()
+	endif
 
 	; DEPRECATED ver. 1.0.1
 	if EntryFaction
