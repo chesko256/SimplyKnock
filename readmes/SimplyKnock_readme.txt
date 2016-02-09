@@ -149,6 +149,18 @@ There can be several causes of this. One, if the owners of that cell are schedul
 * Some files appeared in my Mod Organizer Overwrite directory. What are they, and do I need them?   
 These are your Settings Profile files. They should be named "common.json" and "profile*.json" under SKSE/SimplyKnockData. If you delete them, you will lose your configuration settings. You can elect to move these into a "new mod" in Mod Organizer and the settings will begin saving there instead. Or, you can leave them in your Overwrite directory and should not encounter a problem if you do.
 
+* I see Simply Knock includes PapyrusUtil. I have other mods that also include PapyrusUtil. Is that bad? Shouldn't you make PapyrusUtil an external download requirement? Will I have to play load-order games to get things to work?
+
+PapyrusUtil is a modder's resource and is free to be included with a mod. For ease of use for most users, Simply Knock will include the latest version of PapyrusUtil.
+
+However, even if you load a mod that includes an outdated PapyrusUtil after Simply Knock, Simply Knock should continue to function correctly.
+
+In short: just load Simply Knock as low (high-priority in MO's left pane) as you can, overwrite the components (StorageUtil.dll, JsonUtil) that your mod manager might complain about during install, and forget about the rest. It should just work.
+
+If you are that concerned about whether or not you have the latest PapyrusUtil, download and install PapyrusUtil separately (http://www.nexusmods.com/skyrim/mods/58705) and load it at the very end of your load order. You will then always have that version loaded and you can update it independently of any mod that includes it. To quote Captain Planet: the power is yours.
+
+See this post(http://forums.nexusmods.com/index.php?/topic/2161879-papyrusutil-modders-scripting-resource/?p=34367225) for more info.
+
 * Does this mod use scripts?    
 Yes.
 

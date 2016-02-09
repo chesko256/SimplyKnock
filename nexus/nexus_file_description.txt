@@ -18,7 +18,7 @@ Simply Knock is developed on [b][url=https://github.com/chesko256/SimplyKnock]Gi
 
 [color=#ffff99][u][size=6]How To Use[/size][/u][/color]
 
-[center][img]http://i.imgur.com/MpcEWiO.jpg[/img][/center]
+[center][img]http://i.imgur.com/QlGjtX7.jpg[/img][/center]
 Click on any locked residence in Skyrim. Instead of the lockpicking screen, you will be given the choices of "Knock", "Leave", and "Unlock". If someone is home, they will answer the door. You can talk to them through the door and try to bargain your way in. People that are your friend always allow you to enter (configurable), so being helpful pays off.
 
 If no one is home, you will receive the message "No answer."
@@ -132,6 +132,18 @@ There can be several causes of this. One, if the owners of that cell are schedul
 
 * [color=#ffff99][b]Some files appeared in my Mod Organizer Overwrite directory. What are they, and do I need them?[/b][/color]    
 These are your Settings Profile files. They should be named "common.json" and "profile*.json" under SKSE/SimplyKnockData. If you delete them, you will lose your configuration settings. You can elect to move these into a "new mod" in Mod Organizer and the settings will begin saving there instead. Or, you can leave them in your Overwrite directory and should not encounter a problem if you do.
+
+* [color=#ffff99][b]I see Simply Knock includes PapyrusUtil. I have other mods that also include PapyrusUtil. Is that bad? Shouldn't you make PapyrusUtil an external download requirement? Will I have to play load-order games to get things to work?[/b][/color]    
+
+PapyrusUtil is a modder's resource and is free to be included with a mod. For ease of use for most users, Simply Knock will include the latest version of PapyrusUtil.
+
+However, even if you load a mod that includes an outdated PapyrusUtil after Simply Knock, Simply Knock should continue to function correctly.
+
+In short: just load Simply Knock as low (high-priority in MO's left pane) as you can, overwrite the components (StorageUtil.dll, JsonUtil) that your mod manager might complain about during install, and forget about the rest. It should just work.
+
+If you are that concerned about whether or not you have the latest PapyrusUtil, download PapyrusUtil separately as its own mod and load it at the very end of your load order. You will then always have that version loaded and you can update it independently of any mod that includes it. To quote Captain Planet: the power is yours.
+
+See [url=http://forums.nexusmods.com/index.php?/topic/2161879-papyrusutil-modders-scripting-resource/?p=34367225]this post[/url] for more info.
 
 * [color=#ffff99][b]Does this mod use scripts?[/b][/color]    
 Yes.
