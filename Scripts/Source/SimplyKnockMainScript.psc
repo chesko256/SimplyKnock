@@ -131,6 +131,20 @@ TalkingActivator[] AllTalkingActivators
 ObjectReference property CurrentDoor auto hidden
 Actor property CurrentSpeaker auto hidden
 
+bool using_controller = false
+bool property usingController hidden
+	function Set(bool abUsingController)
+		if abUsingController != using_controller
+			DebugLog(0, "Switching using controller to " + abUsingController)
+		endif
+		using_controller = abUsingController
+	endFunction
+
+	bool function Get()
+		return using_controller
+	endFunction
+endProperty
+
 function BuildVoiceTypeArrays()
 	AllVoiceTypes = new VoiceType[64]
 	AllTalkingActivators = new TalkingActivator[64]
@@ -242,13 +256,26 @@ Event OnCrosshairRefChange(ObjectReference ref)
 	endif
 EndEvent
 
+bool isSkyReLoaded = false
+bool isPerMaLoaded = true
+
 ; Called from replace default Unlock perk option
 function DelegateActivation(ObjectReference akDoor)
 	DebugLog(0, "Delegating activation.")
 	_SK_DelegateActivation.SetValueInt(2)
 	; Wait to exit menu mode.
 	Utility.Wait(0.1)
-	Input.TapKey(Input.GetMappedKey("Activate"))
+	
+    if isSkyReLoaded
+    	Perk passive_fingersmith = Game.GetFormFromFile(0x0A3756, "SkyRe_Main.esp") as Perk
+    	(passive_fingersmith as xxx_PRKF_xxxPassiveFingersmit_020A3756).Fragment_0(akDoor, None)
+    elseif isPerMaLoaded
+    	Perk passive_lockpicking = Game.GetFormFromFile(0x112B24, "PerkusMaximus_Master.esp") as Perk
+    	(passive_lockpicking as xS2__PRKF_xMAPassiveFingersmi_05112B24).Fragment_0(akDoor, None)
+    else
+    	akDoor.Activate(PlayerRef)
+    endif
+
 	Utility.Wait(0.3)
 	_SK_DelegateActivation.SetValueInt(1)
 	DebugLog(0, "Delegation complete.")

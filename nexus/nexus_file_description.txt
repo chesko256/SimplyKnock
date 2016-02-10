@@ -1,7 +1,7 @@
 [center][img]http://i.imgur.com/8fLLRSK.png[/img][/center]
 
 [center][color=#999999]Select Language:[/color][/center]
-[center][url=http://www.nexusmods.com/skyrim/mods/73331]German[/url] | [url=http://www.nexusmods.com/skyrim/mods/73332]Spanish[/url] | [url=http://skyrim.2game.info/detail.php?id=73236]Japanese[/url] | [url=http://www.nexusmods.com/skyrim/mods/73353]Russian[/url] | [url=http://www.nexusmods.com/skyrim/mods/73255]French[/url][/center]
+[center][url=http://www.nexusmods.com/skyrim/mods/73331]German[/url] | [url=http://www.nexusmods.com/skyrim/mods/73332]Spanish[/url] | [url=http://skyrim.2game.info/detail.php?id=73236]Japanese[/url] | [url=http://www.nexusmods.com/skyrim/mods/73353]Russian[/url] | [url=http://www.nexusmods.com/skyrim/mods/73255]French[/url] | [url=http://www.nexusmods.com/skyrim/mods/73253]Italian 1[/url] | [url=http://www.nexusmods.com/skyrim/mods/73359]Italian 2[/url][/center]
 
 [b]Simply Knock[/b] is the first feature-complete mod that allows you to [b]knock on locked doors of houses in Skyrim[/b]. If anyone is home, they will answer the door! You can then flex your speechcraft skills in order to get them to allow you inside. If someone inside is a friend, they will always permit you to enter.
 
