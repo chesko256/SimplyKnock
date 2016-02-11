@@ -7,24 +7,24 @@ Message property _SK_SKSE_Error auto
 _SK_SkyUIConfigPanelScript property Config auto
 SimplyKnockMainScript property Main auto
 
-int keyboard_activate_key
-int controller_activate_key
+bool property isSKYRELoaded auto hidden
+bool property isPERMALoaded auto hidden
 
 Event OnInit()
 	CheckSKSE()
+	CheckCompatibility()
 	Config.LoadProfileOnStartup()
 	Main.RegisterForCrosshairRef()
 	AddPerksIfNecessary()
 	Main.BuildVoiceTypeArrays()
-	RegisterForKeys()
 endEvent
 
 Event OnPlayerLoadGame()
 	CheckSKSE()
+	CheckCompatibility()
 	Config.LoadProfileOnStartup()
 	Main.RegisterForCrosshairRef()
 	AddPerksIfNecessary()
-	RegisterForKeys()
 EndEvent
 
 Event OnLocationChange(Location akOldLoc, Location akNewLoc)
@@ -37,22 +37,31 @@ function AddPerksIfNecessary()
 	endif
 endFunction
 
-function RegisterForKeys() 
-	;RegisterForKey(Input.GetMappedKey("Activate", 0))
-	;RegisterForKey(Input.GetMappedKey("Activate", 2))
-endFunction
-
-Event OnKeyDown(int keyCode)
-	if keyCode == Input.GetMappedKey("Activate", 0)
-		Main.usingController = false
-		UnregisterForKey(Input.GetMappedKey("Activate", 0))
-		RegisterForKey(Input.GetMappedKey("Activate", 2))
-	elseif keyCode == Input.GetMappedKey("Activate", 2)
-		Main.usingController = true
-		UnregisterForKey(Input.GetMappedKey("Activate", 2))
-		RegisterForKey(Input.GetMappedKey("Activate", 0))
+function CheckCompatibility()
+	if isSKYRELoaded
+		isSKYRELoaded = IsPluginLoaded(0x0A3756, "SkyRe_Main.esp")
+		if !isSKYRELoaded
+			;SkyRe was removed since the last save.
+		endif
+	else
+		isSKYRELoaded = IsPluginLoaded(0x0A3756, "SkyRe_Main.esp")
+		if isSKYRELoaded
+			;SkyRe was just loaded.
+		endif
 	endif
-EndEvent
+
+	if isPERMALoaded
+		isPERMALoaded = IsPluginLoaded(0x112B24, "PerkusMaximus_Master.esp")
+		if !isPERMALoaded
+			;PerMa was removed since the last save.
+		endif
+	else
+		isPERMALoaded = IsPluginLoaded(0x112B24, "PerkusMaximus_Master.esp")
+		if isPERMALoaded
+			;PerMa was just loaded.
+		endif
+	endif
+endFunction
 
 function SendEvent_PlayerLocationChange(Location akOldLocation)
 	int handle = ModEvent.Create("SimplyKnockPlayerLocationChange")
@@ -75,5 +84,15 @@ function CheckSKSE()
 	else
 		_SK_SKSE_Error.Show(((0.0) / 10000), ((SKSE_MIN_VERSION as float) / 10000))
 		debug.trace("[SimplyKnock][Error] Detected SKSE version " + ((0.0) / 10000) + ", expected " + ((SKSE_MIN_VERSION as float) / 10000) + " or newer.")
+	endif
+endFunction
+
+bool function IsPluginLoaded(int iFormID, string sPluginName)
+	int i = Game.GetModByName(sPluginName)
+	if i != 255
+		debug.trace("[SimplyKnock] Loaded: " + sPluginName)
+		return true
+	else
+		return false
 	endif
 endFunction

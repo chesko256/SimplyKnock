@@ -12,7 +12,6 @@ Activator property _SK_InteriorStateMarker auto
 GlobalVariable property _SK_Setting_LogLevel auto
 GlobalVariable property _SK_Setting_SpeechSuccessChance auto
 GlobalVariable property _SK_Setting_LastResultValue auto
-GlobalVariable property _SK_DelegateActivation auto
 Keyword property LocTypeHouse auto
 Keyword property LocTypeDwelling auto
 Keyword property LocTypeFarm auto
@@ -20,6 +19,7 @@ Keyword property ActorTypeNPC auto
 Message property _SK_AltMenu auto
 Message property _SK_NoAnswerMsg auto
 Quest property _SimplyKnockDialogueQuest auto
+ReferenceAlias property PlayerAlias auto
 ReferenceAlias property TalkingDoorAlias auto
 ReferenceAlias property FriendAlias auto
 ReferenceAlias property OwnerAlias auto
@@ -256,29 +256,25 @@ Event OnCrosshairRefChange(ObjectReference ref)
 	endif
 EndEvent
 
-bool isSkyReLoaded = false
-bool isPerMaLoaded = true
-
 ; Called from replace default Unlock perk option
 function DelegateActivation(ObjectReference akDoor)
-	DebugLog(0, "Delegating activation.")
-	_SK_DelegateActivation.SetValueInt(2)
 	; Wait to exit menu mode.
 	Utility.Wait(0.1)
+
+	_SK_PlayerAliasScript Compatibility = PlayerAlias as _SK_PlayerAliasScript
 	
-    if isSkyReLoaded
+    if Compatibility.isSKYRELoaded
+    	DebugLog(0, "Activate using SkyRe.")
     	Perk passive_fingersmith = Game.GetFormFromFile(0x0A3756, "SkyRe_Main.esp") as Perk
     	(passive_fingersmith as xxx_PRKF_xxxPassiveFingersmit_020A3756).Fragment_0(akDoor, None)
-    elseif isPerMaLoaded
+    elseif Compatibility.isPERMALoaded
+    	DebugLog(0, "Activate using PerMa.")
     	Perk passive_lockpicking = Game.GetFormFromFile(0x112B24, "PerkusMaximus_Master.esp") as Perk
     	(passive_lockpicking as xS2__PRKF_xMAPassiveFingersmi_05112B24).Fragment_0(akDoor, None)
     else
+    	DebugLog(0, "Activate standard.")
     	akDoor.Activate(PlayerRef)
     endif
-
-	Utility.Wait(0.3)
-	_SK_DelegateActivation.SetValueInt(1)
-	DebugLog(0, "Delegation complete.")
 endFunction
 
 ; Called from Perk
