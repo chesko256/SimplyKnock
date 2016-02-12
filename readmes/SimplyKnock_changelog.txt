@@ -5,6 +5,27 @@ Simply Knock
 Change Log
 
 ===================================================
+Release 1.0.6 (2/11/2016)
+
+Features and Changes
+
+    Updated the SkyRe compatibility patch. See Files section.
+    Updated the PerMa compatibility patch. See Files section.
+
+
+Bug Fixes
+
+    Fixed an issue where the "Unlock" option would do nothing when using a controller.
+
+    Fixed an issue where PerMa / SkyRe were not granting the player Dexterity / Fingersmith skill when picking a lock while sneaking.
+
+    We now keep the door open a little longer after the player exits a residence before relocking it, in order to give the player's followers a chance to exit. This also greatly reduces the likelihood that an owner will flag the player or a follower for trespassing immediately upon leaving.
+
+    Fixed an issue where ordering a follower to unlock a door would bring up the door menu. (If you are very close to the door when you order your follower to unlock it, this bug can still occur. Order them to unlock it when away from the door in order to avoid this.)
+
+    Added a check to ensure the player was not in a menu when playing the "Hey, beat it!" dialogue after failing a speechcraft check.
+
+
 Release 1.0.5 (2/8/2016)
 
 Features and Changes

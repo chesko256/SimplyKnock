@@ -101,7 +101,7 @@ Compatibility
   * *[No Psychic Lock Knowledge](http://www.nexusmods.com/skyrim/mods/44115)* - The normal door menu does not betray the difficulty of the lock.
   * *[Address Unknown](http://www.nexusmods.com/skyrim/mods/57920)* - Use the "Use Alternate Door Menu" option in Simply Knock's MCM, or else the door menu betrays the destination of the door.
   * *[Lockable Locks](http://www.nexusmods.com/skyrim/mods/66917)*
-  * *[Lock Overhaul](http://www.nexusmods.com/skyrim/mods/29979)*
+  * *[Lock Overhaul](http://www.nexusmods.com/skyrim/mods/29979)* (see note)
   * *[Ordinator](http://www.nexusmods.com/skyrim/mods/68425)*
   * *[Requiem](http://www.nexusmods.com/skyrim/mods/19281)*
   * *Mods that add new buildings* (e.g. new lands mods)
@@ -110,6 +110,9 @@ Compatibility
 * **Needs compatibility patch:**
   * *[SkyRe](http://www.nexusmods.com/skyrim/mods/9286)* - Requires compatibility patch. See Files section.
   * *[PerMa](http://www.nexusmods.com/skyrim/mods/59849)* - Requires compatibility patch. See Files section.
+
+* **Special Compatibility Notes:**
+  * Using Simply Knock, SkyRe, and Lock Overhaul *simultaneously*, with Lock Overhaul's "Auto Pick" feature will cause the door menu to display an "Open" option, which will effectively do nothing. Also, selecting "Auto Pick" may bring up the lock picking screen occasionally, especially when sneaking. Canceling out of the lockpicking menu after auto-picking will show that the door was unlocked successfully. All other features of Lock Overhaul should function normally.  These (minor) issues are not present when using Simply Knock and Lock Overhaul WITHOUT SkyRe.
 
 * Includes *StorageUtil.dll* and *JsonUtil.pex/psc* from PapyrusUtil 3.2. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
 

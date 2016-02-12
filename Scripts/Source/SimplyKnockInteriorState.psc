@@ -24,6 +24,11 @@ EndEvent
 
 Event OnUpdateGameTime()
 	DebugLog(0, self + " duration timed out, deleting.")
+	; Give the player's followers time to exit.
+	RegisterForSingleUpdate(8)
+EndEvent
+
+Event OnUpdate()
 	ClearAllowedEntryAndDelete()
 EndEvent
 
@@ -31,7 +36,8 @@ Event PlayerLocationChange(Form akOldLocation)
 	DebugLog(0, "State marker: location changed.")
 	if (akOldLocation as Location) == InteriorLocation
 		DebugLog(0, "Clear entry and delete.")
-		ClearAllowedEntryAndDelete()
+		; Give the player's followers time to exit.
+		RegisterForSingleUpdate(8)
 	endif
 endEvent
 
@@ -71,6 +77,7 @@ function ClearAllowedEntryAndDelete()
 	
 	UnregisterForAllModEvents()
 	UnregisterForUpdateGameTime()
+	UnregisterForUpdate()
 
 	DebugLog(0, self + ": Goodbye!")
 	self.Disable()

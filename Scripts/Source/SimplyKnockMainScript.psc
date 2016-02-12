@@ -339,6 +339,7 @@ function KnockOnDoor(ObjectReference akDoor)
 		else
 			; Beat it!
 			; Have to resolve this manually. CK won't let you link automatic topics.
+			Utility.Wait(0.1)
 			TimeToGo = Game.GetFormFromFile(0x0006AEA2, "Skyrim.esm") as Topic
 			(my_talking_door as _SK_TalkingDoor).SayGoAway(TimeToGo)
 		endif
