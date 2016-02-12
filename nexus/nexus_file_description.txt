@@ -110,7 +110,7 @@ If you would like to use Simply Knock's SKSE implementation of GetLinkedDoor(), 
   * [u][url=http://www.nexusmods.com/skyrim/mods/59849]PerMa[/url][/u] - Requires compatibility patch. See Files section.
 
 * [color=#ffff99]Special Compatibility Notes:[/color]
-  * Using Simply Knock, SkyRe, and Lock Overhaul [u]simultaneously[u], with Lock Overhaul's "Auto Pick" feature will cause the door menu to display an "Open" option, which will effectively do nothing. Also, selecting "Auto Pick" may bring up the lock picking screen occasionally, especially when sneaking. Canceling out of the lockpicking menu after auto-picking will show that the door was unlocked successfully. All other features of Lock Overhaul should function normally.  These (minor) issues are not present when using Simply Knock and Lock Overhaul WITHOUT SkyRe.
+  * Using Simply Knock, SkyRe, and Lock Overhaul [u]simultaneously[/u], with Lock Overhaul's "Auto Pick" feature will cause the door menu to display an "Open" option, which will effectively do nothing. Also, selecting "Auto Pick" may bring up the lock picking screen occasionally, especially when sneaking. Canceling out of the lockpicking menu after auto-picking will show that the door was unlocked successfully. All other features of Lock Overhaul should function normally.  These (minor) issues are not present when using Simply Knock and Lock Overhaul WITHOUT SkyRe.
 
 * Includes [u]StorageUtil.dll[/u] and [u]JsonUtil.pex/psc[/u] from PapyrusUtil 3.2. This mod can run along-side other mods that implement PapyrusUtil and also include these files. It is recommended that you load this mod last / later than (in Mod Organizer, with a higher Priority) other mods that implement PapyrusUtil.
 
