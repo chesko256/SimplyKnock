@@ -3,6 +3,8 @@
 [center][color=#999999]Select Language:[/color][/center]
 [center][url=http://www.nexusmods.com/skyrim/mods/73331]German[/url] | [url=http://www.nexusmods.com/skyrim/mods/73332]Spanish[/url] | [url=http://skyrim.2game.info/detail.php?id=73236]Japanese[/url] | [url=http://www.nexusmods.com/skyrim/mods/73353]Russian[/url] | [url=http://www.nexusmods.com/skyrim/mods/73255]French[/url] | [url=http://www.nexusmods.com/skyrim/mods/73253]Italian 1[/url] | [url=http://www.nexusmods.com/skyrim/mods/73359]Italian 2[/url][/center]
 
+[center][url=https://twitter.com/CheskoTES][img]http://i.imgur.com/QS7RQyT.png[/img][/url][/center]
+
 [b]Simply Knock[/b] is the first feature-complete mod that allows you to [b]knock on locked doors of houses in Skyrim[/b]. If anyone is home, they will answer the door! You can then flex your speechcraft skills in order to get them to allow you inside. If someone inside is a friend, they will always permit you to enter.
 
 All house doors in Skyrim can be knocked on if locked, as well as some businesses where people live (farms, stores, etc).
@@ -10,11 +12,6 @@ All house doors in Skyrim can be knocked on if locked, as well as some businesse
 If you need a quiet place to stay the night, or want to visit someone you know at odd hours, just knock on the door like a normal civilized person. Also useful for checking to see if anyone's home before you commit your next burglary.
 
 My goal was to make a [b]very simple, lightweight, no-nonsense mod[/b] that had a place in almost everyone's game, regardless of mod tastes or playstyle.
-
-[center][youtube]1ceAvABaoao[/youtube][/center]
-
-[color=#ffff99][color=#ffff99][u][size=6]Development and Change Log[/size][/u][/color][/color]
-Simply Knock is developed on [b][url=https://github.com/chesko256/SimplyKnock]Github[/url][/b]. The latest changes are documented on Simply Knock's change log on [b][url=https://www.evernote.com/shard/s53/sh/996bc3d6-e15f-48b0-b4c8-d8ea1281a38a/33ee88c997a62a02d65a40799e2818b1]Evernote[/url][/b].
 
 [color=#ffff99][u][size=6]How To Use[/size][/u][/color]
 
@@ -24,6 +21,16 @@ Click on any locked residence in Skyrim. Instead of the lockpicking screen, you 
 If no one is home, you will receive the message "No answer."
 
 That's all there is to it.
+
+[color=#ffff99][u][size=6]Author Videos[/size][/u][/color]
+[center][youtube]1ceAvABaoao[/youtube][/center]
+
+[color=#ffff99][u][size=6]Community Videos[/size][/u][/color]
+[center][youtube]yotBwhk55FI[/youtube][youtube]J_PrH5bJ6Ic[/youtube][/center]
+More videos are available in the [url=http://www.nexusmods.com/skyrim/mods/73236/?tab=7&navtag=http%3A%2F%2Fwww.nexusmods.com%2Fskyrim%2Fajax%2Fmodvideo%2F%3Fvtype%3D1%26id%3D73236&pUp=1]Videos Tab[/url].
+
+[color=#ffff99][u][size=6]Development and Change Log[/size][/u][/color]
+Simply Knock is developed on [b][url=https://github.com/chesko256/SimplyKnock]Github[/url][/b]. The latest changes are documented on Simply Knock's change log on [b][url=https://www.evernote.com/shard/s53/sh/996bc3d6-e15f-48b0-b4c8-d8ea1281a38a/33ee88c997a62a02d65a40799e2818b1]Evernote[/url][/b].
 
 [color=#ffff99][u][size=6]Requirements[/size][/u][/color]
 * Skyrim 1.9.32.0
