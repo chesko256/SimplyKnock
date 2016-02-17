@@ -131,20 +131,6 @@ TalkingActivator[] AllTalkingActivators
 ObjectReference property CurrentDoor auto hidden
 Actor property CurrentSpeaker auto hidden
 
-bool using_controller = false
-bool property usingController hidden
-	function Set(bool abUsingController)
-		if abUsingController != using_controller
-			DebugLog(0, "Switching using controller to " + abUsingController)
-		endif
-		using_controller = abUsingController
-	endFunction
-
-	bool function Get()
-		return using_controller
-	endFunction
-endProperty
-
 function BuildVoiceTypeArrays()
 	AllVoiceTypes = new VoiceType[64]
 	AllTalkingActivators = new TalkingActivator[64]
@@ -240,7 +226,7 @@ Event OnCrosshairRefChange(ObjectReference ref)
 	if ref
 		if ref.GetBaseObject() as Door
 			ObjectReference linked_door = GetLinkedDoor(ref)
-			if linked_door
+			if linked_door && PlayerRef.GetItemCount(ref.GetKey()) == 0
 				Location linked_door_location = linked_door.GetCurrentLocation()
 				if linked_door_location.HasKeyword(LocTypeHouse) || linked_door_location.HasKeyword(LocTypeDwelling) || linked_door_location.HasKeyword(LocTypeFarm)
 					Conditions.IsKnockableDoor = true

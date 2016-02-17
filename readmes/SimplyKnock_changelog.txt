@@ -5,6 +5,13 @@ Simply Knock
 Change Log
 
 ===================================================
+Release 1.0.7 (2/17/2016)
+
+Features and Changes
+
+    Doors are now unlocked automatically if you have a key for them instead of bringing up the door menu.
+
+
 Release 1.0.6 (2/11/2016)
 
 Features and Changes
