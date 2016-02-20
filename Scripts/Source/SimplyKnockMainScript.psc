@@ -226,7 +226,8 @@ Event OnCrosshairRefChange(ObjectReference ref)
 	if ref
 		if ref.GetBaseObject() as Door
 			ObjectReference linked_door = GetLinkedDoor(ref)
-			if linked_door && PlayerRef.GetItemCount(ref.GetKey()) == 0
+			Key door_key = ref.GetKey()
+			if linked_door && door_key && PlayerRef.GetItemCount(door_key) == 0
 				Location linked_door_location = linked_door.GetCurrentLocation()
 				if linked_door_location.HasKeyword(LocTypeHouse) || linked_door_location.HasKeyword(LocTypeDwelling) || linked_door_location.HasKeyword(LocTypeFarm)
 					Conditions.IsKnockableDoor = true
