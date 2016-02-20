@@ -5,6 +5,14 @@ Simply Knock
 Change Log
 
 ===================================================
+
+Release 1.0.8 (2/19/2016)
+
+Bug Fixes
+
+    Fixed a Papyrus log error when looking at doors with no key, a regression introduced in 1.0.7.
+
+
 Release 1.0.7 (2/17/2016)
 
 Features and Changes
